@@ -101,7 +101,7 @@
   h4 { margin: 22px 0 10px; font-size: 13px; color: var(--suave); font-weight: 600; }
   .campo { margin-bottom: 16px; }
   .peq, .campo > label { display: block; font-size: 12px; color: var(--suave); margin-bottom: 6px; }
-  input[type=text], input[type=number], input[type=date], input[type=email], select, textarea { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; font-size: 16px; color-scheme: dark; box-shadow: inset 0 1px 2px rgba(0,0,0,.25); }
+  input[type=text], input[type=number], input[type=date], input[type=email], input[type=password], select, textarea { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; font-size: 16px; color-scheme: dark; box-shadow: inset 0 1px 2px rgba(0,0,0,.25); }
   textarea { margin-bottom: 8px; font-size: 13px; resize: vertical; }
   input:focus, select:focus, textarea:focus { outline: 2px solid var(--acento); outline-offset: -1px; }
   input[type=color].color { width: 46px; height: 46px; padding: 3px; border-radius: 14px; flex: none; background: rgba(255,255,255,.07); border: 1px solid var(--linea); cursor: pointer; }
@@ -191,10 +191,11 @@
 <div id="login" hidden><div class="lcard">
   <svg class="logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="5"/><path d="M24 7a17 17 0 1 1-12 29" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="24" r="4" fill="url(#lg)"/></svg>
   <h2>Kairos</h2>
-  <p class="nota">Entra con tu correo para tener las mismas tareas en todos tus dispositivos.</p>
+  <p class="nota">Entra con tu correo y contraseña para tener las mismas tareas en todos tus dispositivos.</p>
   <input type="email" id="lEmail" placeholder="tu@correo.com" autocomplete="email" autocapitalize="none">
-  <button class="btn" id="lEnviar">Enviarme un código</button>
-  <div id="lPaso2" hidden><input type="text" id="lCodigo" inputmode="numeric" autocomplete="one-time-code" placeholder="Código del correo"><button class="btn" id="lEntrar">Entrar</button></div>
+  <input type="password" id="lPass" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="current-password">
+  <button class="btn" id="lEntrar">Entrar</button>
+  <button class="btn sec" id="lCrear">Crear cuenta</button>
   <p class="nota" id="lMsg"></p>
   <button class="btn peligro" id="lSin">Seguir sin sincronizar</button>
 </div></div>
@@ -707,18 +708,22 @@
     });
     if (sesion) traer(); else $("login").hidden = false;
   }
-  $("lEnviar").onclick = async () => {
-    const email = $("lEmail").value.trim(); if (!email || !sb) return;
-    $("lMsg").textContent = "Enviando…";
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname } });
-    if (error) return $("lMsg").textContent = "No se pudo enviar: " + error.message;
-    $("lPaso2").hidden = false; $("lCodigo").focus();
-    $("lMsg").textContent = "Te he enviado un correo con un código. Escríbelo arriba (revisa también el spam).";
-  };
+  const credenciales = () => ({ email: $("lEmail").value.trim(), password: $("lPass").value });
   $("lEntrar").onclick = async () => {
-    const { error } = await sb.auth.verifyOtp({ email: $("lEmail").value.trim(), token: $("lCodigo").value.trim(), type: "email" });
-    if (error) $("lMsg").textContent = "Código incorrecto o caducado. Pide otro.";   // si va bien, onAuthStateChange entra solo
+    const c = credenciales(); if (!c.email || !c.password || !sb) return;
+    $("lMsg").textContent = "Entrando…";
+    const { error } = await sb.auth.signInWithPassword(c);   // si va bien, onAuthStateChange entra solo
+    if (error) $("lMsg").textContent = /invalid/i.test(error.message) ? "Correo o contraseña incorrectos." : "No se pudo entrar: " + error.message;
   };
+  $("lCrear").onclick = async () => {                          // solo la primera vez
+    const c = credenciales();
+    if (!c.email || c.password.length < 6 || !sb) return $("lMsg").textContent = "Escribe tu correo y una contraseña de al menos 6 caracteres.";
+    $("lMsg").textContent = "Creando cuenta…";
+    const { data, error } = await sb.auth.signUp(c);
+    if (error) return $("lMsg").textContent = "No se pudo crear la cuenta: " + error.message;
+    if (!data.session) $("lMsg").textContent = "Cuenta creada, pero Supabase pide confirmar el correo: desactiva «Confirm email» en su panel o confírmalo desde el correo y pulsa Entrar.";
+  };
+  $("lPass").onkeydown = (e) => { if (e.key === "Enter") $("lEntrar").click(); };
   $("lSin").onclick = () => { $("login").hidden = true; };
   setInterval(() => { if (pendiente) subir(); else traer(); }, 30000);           // reintenta y comprueba cambios de otros dispositivos
   addEventListener("online", () => { if (pendiente) subir(); else traer(); });
