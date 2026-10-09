@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kairos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kairos">
+<meta name="theme-color" content="#0a0e15">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAqkElEQVR4nO2deZgk1XHgI+LlWVVdXX3ODN1zH8AMIEDiEAIkkMCWLEAy2rW9tmVbh21k+Vt/+/mQj93VSit5d+211p8vrT4bnV5sy0iysSyBxSEhDmHDII6BAYYZmPvou+vI473YP7KqOqsys67p6msqvobJrMj3MqrqV/GueJFoZ8chXjDh9YgKw/+2XKpGE6PCun9bNiO2FCarGpsRLRW5qA0zoqq4d97RZwgIiVZ2ViFQA11L0sJ3eBa1Lk6BxbVtEe/UrQ9tMepFRK3xXZqoej6jZTOiqpXsMxARAKJw9MiIr+AcIQNDZtQ1Kz0y4is4B8mAWjh6ZMRXcG6SASE4emTEV3DOkgEtjFZ6ZHRoRlS1usgAAK3nM5IqOMfJgIaeo0dGh2ZEVauRDIgbysZV1yOjZTOiqtVJBkKC5+iR0aEZUdXqJKMszSbBemS0bEZUtTrJWFA1nATrkdGyGVHVaicDGk2C9cho2Yyoag2QAYmTYD0yWjYjqlobZEB8h7RHRstmRFVrhgyImQTrkdGyGVHVWiID6j1Hj4yWzYiq1hgZUDOU7ZHRshlR1ZojA2HBc/TIaNmMqGrNkVEWLXxZj4ymZkRVa46MBRX1yGjdjKhqDZMB1WalR0ZTM6KqtU0GIBD0yGjBjKhqzZMBANSsW9IjI0Z1LpAB7UWC1VqRfPWqJAMRAREAgYGZATipwnOEDEwO9mlY3ZoiA1EIlr70HOV7AIgkSDdI6MDMrOpKnTtkQKuRYLVWJF+9yshAIZT03JkpI5PLjG5OjWxCxNLM6fzpw6WZM5phCTPFSjayZs2SgZAAx7lBhqZ5hVmzb3jHzb+w8ar3pNdt0W0LEXxHFqdOHN9778GH/nbm9eeNzGDAx7lERuU41b+51erWFhnu/OTQzquu/OU/6t+8RZZA+aCUAgYkIgGaDc7s/NNf+tSrD37J7BuCkP9oy4xY1comY0FV5znODTKE8AozQzuvuvY3vmBmsqUpD4VARMRgSpCVD6UZKfTMFXf8Pmn6ge983swMhNuXc4EMaHU75Foig0g6heyGndf++hf0VNYrSNJ0RApdhoBIQlNS+QX5pg9/YtM1t7v5aSTRlhmxqlVEBrS0HXINkRGcsZKX/PQnrVzWL/koRH2JhRsSM0qPL/np/2IPblCeA+XhbnMzYlWriwxovh1ybZGBRL6TH9h++eieq92CItFgJA9QdjMqPTo4dsW7faeAmEjS2iMDAAJ3mlDj2iIDAABJeqX1F9+g2wRS1ZdIuANL3nDpO1CIuJmxhJvXqlYjGdDIc6w9MgCQWWhmdtNupRrXHL4/KR/T67Za/aMAjCQiBdcmGZA4CbaGyEBCZgBgVkoqVoqNdC7RBcQJM+hWWkmvNHNamCmhGaQZgAjArBpUtKrJQIiHY02QgYjMzMDKl4AohDBTactOayB1gdyy5wBElqxZ9hUf/Mzkgb3Th5+fPryvNH1Sei5phmamkERAXtSMVUtGWSJwrHoyEJBZsZISBRmmmUplLNs2LVvTddJ0f37anTgM4o3A3MLnU7VGG3vj2zZe+TbpgTM9M33khckDT5568dHJg884c5Ok6ZqVRiRWCoBXORkhw1P9W8JWJF+70slARGZQSgGAaZqpvmw6kzEtm4QALgsASiffv+uabT/xX5WrAFvNtIkM4EtgRiISJHQgAdKB2WMHjj/30LGn75848KT0HM1KkzCYVdCSRaxcTWRADRyrloygBVGSidBOZ7IDA6l0WgiNmZVSzIy1v2RWctcv/IW9bky6ClvjAxUgV+7LQVeDCUkYKAzwSzD56t6D37/78FPfLs1O6KYtDIuVrB3drDIyYAGOVUoGIjArqUiIvmx//+CgYdkIUGEi7k0hSaeQ3XHltp/6b8pVwI3ntQAAkAErPYrypZUWiVmBYkAyLESC+VMnDj5y94Hv3pU/c1hPZUgzWflN3vJKJQMawLFiyaieIKKUkoj6srn+wSHTtlkxswLmxt83IvmlueE33rbx3b+iXGapFqbGo8JAodCfOjiCYwAApQBA6KSZUDgzceB7d73yvb/JTxw20zko90Wav69aI5eZDADAVG5r8rUrlAxEVEqxUqlM39DoOjuVVkoppVpJSFK5m/ALU8Nv+vHxd95BGkkHgr5kHSXIFQ6qbUrdMdSCohiUIl3oNsydPPX8PX/86qN3Myvd7mMpI3NoK5oMiIVjhZMBAEpKzTCGRtb15QaC09axWKiKhF+czWx6w7pr3pfedLlm64AgnZCT4BAHtXDUuY16UJhZKWEI3YBjz/3gmW985tRLjxnpHFLYhax0MiAKx0omg8odT9mXGxgeXa8bhpSRMIt2BJGkV2Qp7XXbrZGNqfW7hi69hTQjGGpguClJhiP+GAAVMysjJXxX7vvWZ/d9+7NKupqVYemvAjKCPnwYjhVORtDDGFl/XnZgkNtsR5JvQoigXEd6Rc3qu/COr2ipDCsGwLOBo1qElUJCK40n9j39+Jc+Nn1sv9k3yAlMrxQyoPy9LAzkViwZGJDh+6Zlj2/Zlh0YVL6fNBhpW1ixUqibmt2npfqrJkW/5nCHA6LHde+zChYRAhZn/JGdl978W3+39ar3OnOT5cCiWlkpZITCEqj22pVIBgD4vp8dGBzfss2wbOn7rc58ty7MrBRHYwEbG1fb20i8gIGE5hWVZmav+8U/uuInP+GV8kp6SKFf5sohIyTVHW+dGBFbatHJUEoNDI+sO28cEbmjvucSSLzbCF9ApCR7RXnRO3/2zT/3v0jo0nOCwdHKJANCO95WLhmjG8ZGN4wF81qL7zOSJHa1tbZNiXcbdQVDpwSIKIoz/q7r3/P2X/uybmV8t0gNpliWlQzoODF+7J26REZucEh6XhMzF0uYy38JEms9xmmrnZU6FQmtOOuPbt9z40c/b9hZ6ZUSpuCWmQxsEgm2QsjoRicDAMpLcVXTEBFRaKghCmJWwdouS8kqtJBWLtvkuM7cOlCE0Jx5ObJt99s/eqdu90m3GO5/xFWQrOoaGdBBYvzYOy0iGYF0i4yKV0AiEkJoGhIRETNLKaXvu/lpd27Wy89pJmkWGRlhZoRuE2oY9FirGySj3qLeygSAyl1UEs68HN62+8ZfuVO3+5TvhcYvK4IMAMB0blvrRsTeaXHJQETp+wPDI6MbxqTnLR4ZjEhIBAxS+p7ruo7jea7rOMzge65SCpCEkQIAJNG3YQcgZjfszIyO949d2Ld+R2ogRxooF3yXQSkiAsCauY3IvEjd6wtvtfIKS9/Oaq8+8cB3P/eLup0FAGBu15F3hwyEBDiWjYxgPiM7MLjuvHGVuFjVjjADIhEBgOe5xUKhVCgWiwXf8zjwIsFUIBICMjAEjoFZeg4AKOUjIOmmnR0e3Hb5yPlXrLvgLf3jO4QGfhGUlAgUjDWwrkEJz8FDggoAAJT0rbT24kNfe/yu3zRSuVaX6LrsM5LgWD4yAKWSlmWPbdkWhGgkF2xBAiyEUFKWCoW5udnC/LyUsuxCEIMRJNf9UquTYLjQ7CKzkp50i0pJPZUd2XXFlqvfs+HiG+1sRjogPYkkYt1G/XH0FAAYWEkrIx754sf3P/xlq29IST/yZpbaZ5SPauFYzh5ocDi+Zath2Z2tpYWFiJRS87OzM1OTruMwABGV7anBromFC7AQAQAr6ZfyzJwZ3bz1zbfveOt/SA0N+vlgmpw6ICOwh0gp5d77mZ+dPPK8bmVqp+OWhwyohWOZyVBKrTtvPDswKH2/YzKYmYgQMT8/P3n6lFMsIhEGWMS4otbIqL0QSQCg9Eq+U0wPnrf7nXfseOtPCSG8ogxPWiQ2NKHTaq2slG7R5OFX7v3jn1LSQxIVa5eNDAjBsZxkBJ3QvtzA+vFN6myGJ8ykab7nTZw6OTczg5Wfe1MzYlWxZIQ+SUQSynO8Yn5015WX/8Tvrdt5sTOvIBgUN0Sh/hQAAJQvU1nx/P1fffSuj1nlvA/LSQbEw7HkPoOZNU0b37o9CPxMLttESIj5mZkzJ0/4nkciuvso3oxYVRMyFl5AJOEVZ4Vm7XnnRy561x2sQLkqgLJ1MoJRD7PUDfGdz95x5PkHDDtb0zldcjIgZhJsyclARFZqcGSdphsdj1CCDuaZEydOHD0ipRSatkQ7nplZ+rrVhySe/tr/fOhPf8mZndAtYilbJYMBq+NhRgZ4420f0830spMBSYnxY8t0pwcKUspUpq8vl+u4ExpEDR5//bWpiTNBh6Oh+1k8MioqVgoArezw0Wfv/9b/eO+ZQ/vMjFBStkRGuCIi35FDGzfvftuHnPw00vLmlw7DsRxkAAAhDY2uw4ZWNpAyGYdfL+bzmqZVX21qRqyqAzIqB6ykb6ZzpdlTD/7pL5w+sM9MCRX2H1znokMOo6Y68otqz43vHxrf7bsFrCyMLjkZCAu7epaDDERQUmb6c1Yq3VnAX5WMUqEgNK28bLsMZJRFSV8z025x7oE/+cCZg/usjKgGfUWbknoJ2hdE6XMqm9nz9l+WfilI+rD0PiMQily2dD6DGUhoucEh7ijgL56MFsyIVZ09GYGwkrqZ8p25B/7sA6cP7NNtwVI1dRjh9oWEcApq6+U3DW+82HXyVJN1qFUzAM7KZ5QtWS4yEFBJlcn2m7YdSvfZnpw4cnhFkQHl/rUUhu0V5x748w/OnTyqm1juXTZwGLWvKcWmZey+/gMs3Q5DgRZjl1qjnGDdIwMAGIBI5AYHGy41JQoJMXHqVDGfX2lkBAespDBTzvzEo3/9MZaMBKC4vlgcFgCADAKFW+Qtl/3I4HkXem4x4d11lwzA5Jxg3SQDAUgpZafThmW3O3xl5mA+Y3pygoRYgWSU7ZS+keo/sf/7T/3jZ0yLoNY7JvRGF1yLUspM6Vsue7f0HIrZ0Nt1MiApnqPLZEAwou8fGGjbYwAQke95Z06eKH8ZK5KMQJT0zfTgvgc+d+S5J4yUaNC4lLEIxxQi+S7suOJ2OzsiZV3owlKQAbGRYN0nA5hZtywrnU5eoW5wZ5w4edL3PGo0NR5381pVt8lY0JH2xN2fcObnKa5xiWJRLSc91T80uHH3jZ6TbykUaLF3w0d2TySVaWZEtFQSGcGUaLovI4Sm2pwsJ6L8/Pz87EyzBmVlkAHISulmevLIvufv/2Jd44IcgwVWf6wVB7P5kh9FpPh1uFo7ko3uhAyog2MJyAAAZkaidKYP2t+YpJSaPHWqbMaKJyP4J5gc2/fQX50+/JpmEiiFSS1LcFTdo4voOTC69dK+oU3Sdxp98l3JoBHq6SwNGQCgQBmWabbZFeVgXW121ikVG2SWXWlkBEIk3OLsCw/dKUR95EDYVUCdI0FUUqaz6fN2XeO7JUrKgtoFn1E2O6LqLhlICIpTqUy5XWhZEEApNTM1Cd1chQes64EtAhkAoFgadt+hvf80dfSIZpTfeBITWPOHwDB+wdsQRfyn1R2fERwRLCEZgBDscbVSqXbbFCIq5fOu4yT3QzshA5GIRBBco6SnpMcsyy8mZ4Rqe2KKgUgrFWYOPv3PmgHAagGLULE6MIEBAaULg+ddaGUGlYqEW3eFjAWhpSQDyrMUmmmabbmNoO85NzuTvH+6bTIQEUn4vlssTJWK00gilR6wUwO6nnKduUJ+ynOLiLRYO54Vs6bbh/Z+05lzBBGE8kjVMwEhbhCl5MzAcP/oNuk5NbfuMhkQSjW5FGRAMIg1DKEbbcFBRJ7rFvJ5JIor2DYZRML3HM93Boa27rjgpg3jlw2O7EhlhoHBcwuTZw6cOv7sgf3fOXH0WQAwzYyqBHV2vq+VWdPtqeP7j730xNZLr3MKsr4PkfB5sFJ6SoxuvvT4gR8Y1Y5s98nAhs94SzQiWl2LZCAiMFh2iohaDxQNpkSLhYL0/fJkeYN7RVQxPoNEqTiTzW265sb/uOOCm9OZNDNIGaT1AjuVHRhev3P3W970lg8ffe0Hjz74J4cPPW7bA8EWucb3aqxCBFbq8AsPbLvsusp7a6UuBAmjmy9DpKo7SS6yaGRAk6dDLioZVTEtK7naRCkVCo3NiFXFtSZUKk5v23XTzbd9Ojc47JSgUJAIQTODAMAMvq+YgUhs2XnN+JarHv6XP3zysTt13aZ4v9XcjEAUK6EbZ17/oVPwCDVQDbt7CztfUPrQP7rNtLNS+bE9oW6QAe0mxo9W1w4ZyAyIqOt6W73RwM0UC9E2pSOfUZq99Iqfe9/7P5fKDBfykpmDDmnleTzlLbNBHHmpKJWim279rZtu+bSUToN7taZiYVjTJ16ZPPqyZmDQLV3oc3DtX6gOlpDqGzFTOWYZfRJwl8iARDi6QAZUeqOarrc3iEX0XDfSDHXYmmzb9Y6bb/u460rpKyLRsB4IEJmf9d54ze1Xv/XXioUpopYffBb3aRCS7xUnDj+jCWDmeBpCJQJalVJW2uob2iilV/ej6hoZCPH5nbtDRiBCiGZrIjUSjFNcx6nNANY2GYAoPac/t/Hm237fl8Ggp0UzkISen/evftsvbb/g5lJpJvRInk6+EgScOPZCNIIFI39hISI7M1S3FNU9n1G+aaS2LpLBzJquU/v7D7ya/BztkwGAQJ5fuubGX88NDvmebJmMqhAAXHfT75hmhtmP+/rqzYieBf+i0OYnDivJwS7bWBTKUnEqrJgIBjacz0pWg2276jOCo7ro8y6SEUi7WASh5K5TgnJMeSdkAKLvO4ND23dc8A6nxInz0I3MINeRoxs2b95+vVOzRhpvRvQMAQCQmYVmzE28XpqbF6KynMYJf7XVKM+Jr7UdM2JLYYIqHH3eXTKCRkE3jOS7JAo3XZNsQAYgoeZ5hR0X3pzO2FLKznbUIQICn3/xbW1MddSSUX1VKQlAdRBEm5XqHwGygr7BcSLBwFhXe8tmxJZKIgMW4Oi+zwAAYDYMo60d9IiopPS9+o5Y1IwkMoIbI9L6scuC4VKLt47cg3wfR9bvse0BpWL3bLZABjOR5hSm5868JjQA5kbNSkiYoW9gY2g7f9fJgLZygp0tGQDQfrMSFFFKJdfZjAwEKX3Lzg2O7JASOt4gA4BSciYz0D+wUUo3Uk8rPgMAABF9z3Gd+fYoZVDSWzKfEUir2wYXhYwWfiHtFmzqMwAAmX3TzKXSw0qdhQ0IzGyaeio9ouozlrZKRvl1RAIqBxi38mMJNkQ1p2kxyYAWc4ItEhmLLq2QUZbgGYBnf8u4etojI6FY69Lod5Jw1gkZkAxHN3zG4nLTBhmIKKXjOvmzywcT1CNdNzmis2UyOiK17XRhMaoWyUCEhCFZN1uTxSGkDTKAmUgv5CenzhwQAhg6TTXGTIT5+bmpiYNCmBz9qlr3GUhEGlaalZo/qPmrLZW0Srr4PiOQRhsiFp0MBFB+27tUhKYZNfEf7ZARvIqkpHfq5D4SnfSIy5YAaxpPTbxaLEwKoSW1LU3IQJTStzPDuZFt0ovrRtROdVSJIQa3MBO3NbArPiM4TMyNurhkIECQwc0tlc7ugQdtkwEAzErTrQMv3ueUZFuT97WVMBK+8sK3pe/We9xWfQZWL2lripaZkWDyxH6lGi4wLQoZIYnfDrn4ZFRfavO7CUgyDGMhLWT7ZjCzrqdOHP3h0deeNkxq8ekIdXZoGs7NzB548V7dSCvuMLMKAirf7cuNWbbNsoWHD4ZE6Ga0woSzRSADIG47ZBfJQPQ9r4OH6GiGUePv2jcjOH70wT/wPYkEDbKbx4piaZj0xMN/MTt9TNOsheLtkFGuSsm+gTHN0MqPOk/ueYRKo1IwO3EYkTh2EqwLZEDDTU1tGxFVRa+Q0m9rlxsiArNpmhhOB9g+GczKNDOHD/3g4X/5TCollIrm+kwUKb10Rnvhhw/sffzzlp1bKNs+GYjILAc3XEAI3GDAwjXQEAMomJ8+hkgxY5bukAF12yG7TUYQmtBsLrxegrBTrRog2InPAABQStp27snHPvfkY1/LZHVm2TT1AzMr6Wf69COH9t3/T78nNKtmLWTh31bNYGYhjJENe1gCVfZBNPksmInQLZby08dJM+qB6hoZEPcYr4QXzpqMoFlgZr/N52MEAxbTtrn+6fNtkFGpCnQ9df83f/d79/2FbgjdIFaSlWSuWQZlDqbspRCYymj7nr7v61/5kOPMCaHXAdoWGYAofbdvcOPo2B7fg2BPSjgjVBIrRFicnynOn6kPNeomGVANMF4KMgLPwew4Tgax9TELMxOibdv5udnQol3bZASVERGi/f3v/MHxI09ff9NvjmzYDgDSBykhcCSIKAQKDYlgbmbye/d9bu/jXxSaqWk2swxX3x4ZAAjoe6XRsYvS2XSpqAgpxGPtdaEzBUwazkwcdAozutW34O26SwZCQvR5V8iASliXUyq2NZoNehtWOhzf2wkZlfhhBoBUevDgSw8ce/3fNm+/9vyLbxlZvzvTt84wBQBIH/Lzk9MTr7z8wr2vvPidueljlt0PAGdJRuWNqI07rwcI4mkXLqppLOpaDmZBcPro81JJAzHuA1h8nxGItjQ+I3SGruNI3xftbIdUShmmZaVShXy+s+de1bGolDTtflb+S8//80vPf8tKDfQPjKfTwwzguYWpiYPF/KSUnm6k7NTAwjLbWZARBBxlBse37LrOdwChus+gvkBkdg2lDydfe4pItNLrWhSfEUjDcNnFJgMAgkzWruOk0unW4Qhalkw2W5jPY2wS84YWxnqpIH+0afcDo/Sd0ydePCl9QEAkTRi6kTKCZxwvChkAhOS6xW1vekd2MFfMl7Ok16ziYX15BgBmISg/Mztx4mWhWwxNel2LSAbUwtF1MqDS7SgVi6lMpvXGJUjpkUqndcPw43dDtUdGVRmMqxGFrmugl1/likSr74yMoE6hm7suuVX6CybVchBzLwbWdJw69Uph9pRupmoXhrpIRnDUZHWxyZ3aJAPK3Q4qFgrtppdUSglN6+vPxhXskIxau1T1L+nCjslAEq47v3H7W87bdKHvqIU2JVQSq+VD4YPMTARHDzwmpYs1O1a66zMCid2a0KRMnap1Msq3JHJKJdd1qR04AufR19+v6XptYo+zJ6Oh6qzJCLQMcOk1H6RKwnyE+O0qNZQoICSn4L3+0neFbqoFt9Fdn1E9aS8xflTVJhkIgEFYaCGfh8TdhfES7GzIDQ6G5lhXARkk9FJx+vxLbt2y841OSWEoJ8oCInGUACjdwNNHX5o89YpuWKDiR2qL3posWJ50n+6QAVAZ0Bbm5ztIXKyk7Mv1Wym7YVTpCiIDiKR07fTg1Td8VCkuj14jQed1L5ZfYBYEh/Y/4HvFyiru0pEBrSfGj6o6I6N8V6JSseiUSh0soBPi0OhoXGrOqhUrg4wgmArJKc29+cb/NLxuzHMYKxuZABoiwgDAQlBhvnTg+W9X1oGXkgyEFhPjR1VnQ0YgrNTszHRykUSRUlq2lRsaVDLG8awgMgCIRLE4s/3Cmy696vZSQQqixg4j3MCzVLqBr+67f2biNaGZCe1OS2Y0NT7pouaJ8aOqsycDAJAoPzfvtbkIBxDsZFG5oYFUJi2lrPmQVhIZiOT7TjY39o5bP6EUL2TYiqR6AohDBFH68MJTdzfMudDcjKbGx/qM4KhJYvyoalHIgHJiBTk3M5OQrKeZMIysH9U0DVQ5r8YKIwOZle87N936qf7+Qd/l8NxGXfrRKCLMyjTp6IGnTh7ea5iZutF1l8lYkEaJ8aOqxSIDAJmBiOamZ1rIRRwjzCw0sX58zFcFX3qdzal3kwx2nfxNt356664rS0VJRHX7U+pcCEQQYYa9j/6VUn6yY+8uGdAgMX60zCKSEfwXZDGfm+7YeSAK99orfiabWud6+YTt0ctEhpu/+dZPXXbVbU5RYgXcumT4URcSvMhKGRYdfuWpw6983zCzYbexlGRA69shF50MCOJDBc3OTHuu267zIBRFd/qCsXfffu1//tkf+xPbzLl+QZxdZhVYBDIoRMZ7CvM+oagpE9niVkaktiaW6qlH/pKjzqY1M5oa3woZEJsYP3pVN8gIzgLnMT0xEXYeCEgogjSPiEQoEGtS8BCKgjt1yeYfv/GSX50t+Js37P7ge+60zP6CMxPiYynJAAAgEtJ3XDd/8y2fvvzK9xTyfjk2J/L0jJjc1hUXopS0bHpx772HXvquGYreWHoyAAD7hi5sXF33yKgKK96wcdxOpZRSiCSl68kioggmM6TyEVEXNpHGzIRUcKcu2Xz72y7+iOcrBlRKWaY4PXP4q/f99oHDj6TsAQBKDgFcbDIAgIiQisWZ/tzYj9zyya07ry4GT6fGUKOBkdFo5BVmJsGOk//b//vvC/NnSOhQyXXc3IwuZPdLgmPpyIDg27Wt8zZtVtLzZCmXHt8yetVQ3/aMPcrMM/nXTs28cujU40V32tDSJXfmki1lMlSQNQNAsjIMUkp9+5E/fPipOwk100jJmCjixSeDhCal55Tmd5z/9ptv+UQ2N1QK9TOa8AEQfsSGUtJOiQfu+d97H7uzGkeyTGQgJMCxpGQE/7CCvoHM6LqxK3e8f9fYjbaRYi4/4IsQmGG2OPH0wa8/c+juizbd+taL7giTAQCMwKwQyTLhhYOP3fPdTx0/tS9l54hEaEf8IpOB5YyDM3Zq8NobfvXyK35SKvA8SaISq1EpHWYi8jSv8itKKcumQy/92z985UO6keJl9RlJcCwDGYTkesWUPfBL7/vi+NCuoguKF5JfMTACaoII4czskYHMuGJQUFmnCP0cGUCxtC2RL84//OTnH9n7+ZIza5nZIIZqseIzEDHoeDpuHgB2X/Tut1z/keF1m4pFBVDZWxNmohU+gEmA68x/9a/ePzP5uqZbzGqZyAiVqoVjGchARCk908h88LY7t2zYky/5Ii4DJAMDsyZIqpog9OoHXf2hKaVIkGXBkRMHHt37hWf3/3OhNKPrtqHZgEEa4nAvr9X3FTABAL7veF5JaMaWrde86aqf27bjaqXAdSWSWOAgbBU054NZGpb45t/9zv5n/iFoUJadDKiFYxnIAABEctz8z7zzz67Yc9Ns3o8MR2skCB5bcBXhXm3o+2BgZqUbQhNw/MzB51761rP77z15Zj+z0jRD163ynHQQgMWx+4uwzEMlLNn3Hd93mFV/bnznrht277llbOMbiKDkqODCeiZa5kMpmUqLf/3+3z34zY+n0kNK+SuBDAjBsTxkEIqSO7dt7KqP/LuvlNxIrvhk4ToyIOaLUawYwDBI0yBfdF99/ZH9Bx88cuLZ0xMHPK+IiESaJgwAJNLqZt+l9AFASlcpySyF0HO5TevX79667bptO67P5QalBMcL9pxQIhN1QET4AASppG2Lw4ee/9qXfr5sRm0+gXhZknxMWhN9N8kIzqTyL7vgvUQM9XuWGkozMhgAkRDB89hxlRDG7l037Dn/hmJJHj+z7/jJH5449fLUzJHJmddYyUJx2vcXHliBSOn0MAD0Z8ez/etHRy9Yv+7i9eddlMmkAMH1oFCQiIhUflZ0NQUmRjcZYOjFulMAJaVpi5PHX73nb34FABHDD4FbZjIgnBh/GcgItgjo6bGRPVJhfDrlVqTOgddrkVAwcNFRwEBCbBq7eNumixWDryBfmGdQUzNHHGc+yADAwIhiaHg7Itp2VjMAEZQCz4dSSQUPqCvHjod3rVaP60CJ46N8qJSuCyc/d9/Xf7dYmLKsPk4aWNW+neYfxGKQAck73paCDASUykvZQ7nMeVI2XlaNSOVTjs4sLbxYe3fCYFaKXZedIOEtkW1lGCCT2Y1Y02vxJTCAUuCUlGJGRKTgv4X6MXJQPo5zJGE+EEGx0nRynbmv//VHTx1/3rL7eWFWZkWQAQEcy0JG+FbYQUrh6vp2XHtflSol4VFs0MuszC4wI0iXAZirO/PKZgUXU+Q5BbU3iDiPpqwoKXVDOM7c1//6o8eOPGnbAyuPDASIPqChZSNiVW2RwcCIWsnJzxfPdJBvJ2ZEED5u1Q1hQACGVnMCL1FfRahH1OAgxqDQKQYtqSVcZz4gI7USyShLh4nxY1Xt+gwAIKEVS9OnJl/RBDdNiBCWGD8R28rEmLkYEgNjzTHWHVdOlZK2LU6fePmrX/rw8SNPlZMhNzVuqX1G+dvsJDF+rKp9MhAAkQEQf/jyPQhxCw/JEp4+jClX2/PgyJXtB48kSpLzwNrjIKtDKi2OvPbM33/5F0+f2GfZuZXnMzD8T9uJ8WNVHZEBAMAsLSPzwqEHDx57ybaEbJatK/AuklUnbqNNqf7iY99G4nuLcyRBqg/TpCe+f9dXv/wh1503rb4VTga0mxg/VtUxGQDAAITkeaW/v/+38sU5U2/Eh1JS14gBTIsAys1QE7exuMK1pkeOo8QGW7FtW3ju7D13//b93/rvREIIY6WNWqNkQFuJ8WNVZ0NGIIqVZWaOnHr2L7/x4ZI7l7KEVFKxZFYMzOW8+FKxyqbF4ZMv/J+73vXwU3cZOho6SSWr31jCJEf9BGX98WL0QpJ6o0pJQZhKiVdfefyuL/z8vmf/MZUeRMAVNdMVVtXDnR3e04oRsaqzJ6MiLMgoOtNjo5e87+0f37LhYlV9lieCIBAEiuHp/d/+xnc/OV88w0pduO3tP3rdb4yt215yQCpJJOoGKTEdjnA3JQRH9IL6me+kmIy63kyoOLMCRNvGudmpRx/5y73/+v8Q0TDSK2fdJKqKXtEAjiUjozz9RSQcd17XUudvvu4Nu35sdGBHJjXMzNNzR46dfvGp/d84eOxJjTRNmABQdGYNI33tZR+47k0/n0lnCiVQqhx8BZDw/S0SHOH6o3UyKwYwTVIMzz1zz6Pf+/Opqddtux8AV8IqfFKF8f2qBDiWmozKMTHLkpsHYNvst4wMAORL065bIBKmkYHKk38JhWJVKE2fN7Lnuis+cPGuH7NMveSCUhKRqkEVsaugNb/yOGKicEBz4FgqhUSmicxw8OAPnnjsC68e+J5hpDTNXPaYrsYVxlwRxEvHwbE8ZFRfK4eOsgx20xNphMQQnggplyLSXK/gS2ds3UVvvuz9F+96V8oyHB88XwEwES30IJOagFbgqC1ed6xYMbMQQjdAKjh08Af/9sQXD776KDNbVh+zWtaYrg59RhIcy0tGuFRZHQm2qL0xESI6bkFJd8PIhRed/85Ld793sH8dALg++OVnM1F4Kvjs4VBBxAgzkdAMEALy+fxL++9/9pmvHz36Q6V80+yDysAbVhcZYUdeC8fKIaM1VeWMkBDRdYu+dDPp4fO33rB75zs2jl3Rl04zgy/BV6BUAAoCYbVkIhxQywcGyagVMyChECQ0IIJSSR4/8dyBAw+9+OJ9U5OvEZJhZgConHqw3uLVRAbUwrFaycDK/4I1ESk9x80T0kBu07ZNV+/ccv360d39/Rt0HZhBlkHhoPvCwRxtEO4VgmPBXSEAIAlCAiGACKSEufmZ02deeu3QY6+++vCZMwc8v6TrtqZZEPIWEYtXGRkQgmPVkxHWBRlLfel4XglRpO2B4aFt4xveML7h0qHB7X2ZEdvKkABBwAjBdArUwoEAwe4CqUAxlBwnX5ianDp04vhzR4/uPXX65fn5U1K6mm4GQYfMKrqhc1WTAS3AserICN+LgjBxpXzfd6T0EMmysraVHchtTqcGR0d2+b6Xy23M9a+XMpTakKBUnD91Zr+mianp47OzR2ZnT+QLE8XiTDBg1jRLCB0Jg0TYscavdjIAALPDFzWubpWSUauqhAozKPalUlK5wcQrABNptTtaEQCYVbAnipAQhRA6kRbEeAaJ0mu7yWuQDEhIb71Qz5ogA8rdi3LYFmma0MAI+qYAQUBvTExv1eCgJDMstB0NP421QQYkw7GWyKixA8pf9sIzQGtqDfkDDg9eE6tfq2QgJCy8rWUyEq5u24zYUmuFjLJEPUePjOZmxJZaK2QsqGKeDtkjo7EZsaXWHhkQzQnWI6OxGbGl1iQZUJcYv0dGYzNiS61VMiD+GW89MhLPziEyoLodskdGYzNiS61tMmAhrW5HRsTZ0COjiRnRUiuTDKh5xluPjMSzc5AMhNDWhPaMiLOhR0YTM6KlVioZZbXWgRFxNvTIaGJGtNRKJQOr6rYT48fZ0COjiRnRUiufDGg3MX6cDT0ympgRLbUqyIC2EuPH2dAjo4kZ0VKrhQw4m+2QPTKamhEttYrIgHBOsLaq65HR1IxoqdVFBjT0HD0yzmkyoHEkWLyiR0YzM6KlViEZCA0iweIr65HRzIxoqVVIRlniI8HiK+uR0cyMaKlVSMbCSUwkWHxlPTKamREttarJgBYnwXpkNDUjWmq1kwHQwiRYj4ymZkRLrQEyoOkkWI+MpmZES60NMqDxJFiPjKZmREutGTKggefokdHUjGiptUQGJE2C9choaka01NoiAyHWc/TIaGpGtNTaIqMs9Z6jR0ZTM6Kl1hYZC6oaz9Ejo6kZ0VJrlQyo2dTUI6OZGdFSa5gMaCHYpx1p4Ts8i1oXp8Di2raId+rWh3YW9Vae8ZZIaM9nxFewtn1GIARNGpTWpOczzuJOK9BnBPL/AXRwXds9OUlKAAAAAElFTkSuQmCC">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- 1. COLORES Y CRISTAL ---------- */
+  :root {
+    --fondo: #070b12; --texto: #eef2f8; --suave: #8d99ad; --acento: #5aa9ff; --acento2: #8f7bff;
+    --peligro: #ff6b6b; --aviso: #f0b429;
+    --panel: rgba(255,255,255,.06); --elevado: rgba(255,255,255,.09); --linea: rgba(255,255,255,.13);
+    --brillo: inset 0 1px 0 rgba(255,255,255,.2), inset 0 -1px 0 rgba(255,255,255,.04);
+    --sombra: 0 14px 40px rgba(0,0,0,.4);
+    --arriba: env(safe-area-inset-top, 0px); --abajo: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: var(--fondo); }
+  html, body { margin: 0; min-height: 100%; }
+  body { color: var(--texto); font-family: "Inter", -apple-system, system-ui, sans-serif; font-size: 16px; background: transparent; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+
+  /* Fondo vivo: tres manchas de color que flotan despacio (lo que el cristal desenfoca) */
+  .fondo { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .fondo i { position: absolute; width: 55vmax; height: 55vmax; border-radius: 50%; filter: blur(80px); opacity: .5; animation: flota 24s ease-in-out infinite alternate; }
+  .fondo i:nth-child(1) { background: #1f5fff; left: -15vmax; top: -18vmax; }
+  .fondo i:nth-child(2) { background: #7a43ff; right: -20vmax; top: 25vh; animation-duration: 30s; opacity: .4; }
+  .fondo i:nth-child(3) { background: #00b8a0; left: 5vmax; bottom: -28vmax; animation-duration: 36s; opacity: .32; }
+  @keyframes flota { to { transform: translate(8vmax, 6vmax) scale(1.15); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  /* El "liquid glass": fondo translúcido + desenfoque + borde y brillo superior */
+  .tarea, .asig, .chip, .icono, #aviso, .interruptor, .cat, .btn.sec, #hub, #hoja {
+    background: var(--panel); -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid var(--linea); box-shadow: var(--brillo);
+  }
+
+  /* ---------- 2. DISEÑO ---------- */
+  .app { max-width: 640px; margin: 0 auto; padding: calc(var(--arriba) + 14px) 18px calc(var(--abajo) + 110px); }
+  #hub { display: none; }
+  .marca { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 18px; }
+  .logo { width: 30px; height: 30px; filter: drop-shadow(0 0 10px rgba(90,169,255,.5)); }
+  .marca .acciones { margin-left: auto; display: flex; gap: 10px; }
+  header { margin: 6px 0 16px; }
+  h1 { font-size: 34px; letter-spacing: -0.03em; margin: 0; line-height: 1.1; }
+  #contador { color: var(--suave); font-size: 14px; margin-top: 4px; }
+  .leyenda { color: var(--suave); font-size: 12px; margin: 0 0 14px; }
+  .icono { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; padding: 0; transition: transform .15s; font-weight: 600; }
+  .icono:active { transform: scale(.92); }
+  .icono svg { width: 20px; height: 20px; stroke: var(--suave); fill: none; stroke-width: 1.8; }
+
+  .tarea { display: flex; align-items: center; gap: 12px; border-radius: 20px; padding: 14px 16px 14px 0; margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: background .2s, transform .2s; box-shadow: var(--brillo), var(--sombra); }
+  .barra { width: 6px; align-self: stretch; border-radius: 0 6px 6px 0; flex: none; transition: background .6s, box-shadow .6s; }
+  .hecho { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); background: none; flex: none; padding: 0; cursor: pointer; transition: all .2s; }
+  .hecho:hover, .hecho:active { background: rgba(90,169,255,.3); border-color: var(--acento); transform: scale(1.12); }
+  .nombre { flex: 1; min-width: 0; }
+  .nombre b { display: block; font-weight: 500; overflow-wrap: anywhere; }
+  .nombre span { color: var(--suave); font-size: 13px; }
+  .nombre span em { font-style: normal; color: var(--aviso); }
+  .imp { text-align: right; flex: none; }
+  .imp strong { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .imp span { display: block; color: var(--suave); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .vacio { color: var(--suave); text-align: center; padding: 56px 12px; line-height: 1.5; }
+  @media (hover: hover) { .tarea:hover, .asig:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); } }
+
+  .filtros { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 14px; scrollbar-width: none; }
+  .filtros::-webkit-scrollbar { display: none; }
+  .filtros .chip { flex: none; }
+  .pt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  body[data-vista="asig"] #filtros, body[data-vista="asig"] #tareas, body[data-vista="asig"] .leyenda { display: none; }
+  body:not([data-vista="asig"]) #asigs { display: none; }
+  .tabs { margin-bottom: 14px; }
+  .asig { border-radius: 20px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: background .2s, transform .2s; box-shadow: var(--brillo), var(--sombra); }
+  .asig .cab2 { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .asig b { font-weight: 600; font-size: 17px; }
+  .asig .pos { color: var(--acento); font-size: 13px; white-space: nowrap; }
+  .asig .det { color: var(--suave); font-size: 13px; margin: 6px 0 10px; line-height: 1.6; }
+  .reparto { height: 6px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .reparto i { display: block; height: 100%; background: linear-gradient(90deg, var(--acento), var(--acento2)); border-radius: 3px; transition: width .6s; }
+
+  #nueva { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--abajo) + 20px); background: linear-gradient(135deg, var(--acento), var(--acento2)); color: #fff; font-weight: 600; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 16px 30px; box-shadow: 0 10px 34px rgba(110,130,255,.5), inset 0 1px 0 rgba(255,255,255,.45); cursor: pointer; transition: transform .15s; }
+  #nueva:active { transform: translateX(-50%) scale(.95); }
+
+  /* Hoja inferior (móvil) */
+  #velo { position: fixed; inset: 0; background: rgba(2,5,10,.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  #hoja { position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: rgba(16,22,34,.78); -webkit-backdrop-filter: blur(34px) saturate(180%); backdrop-filter: blur(34px) saturate(180%); border-radius: 28px 28px 0 0; border-bottom: 0; padding: 22px 18px calc(var(--abajo) + 22px); transform: translateY(105%); transition: transform .35s cubic-bezier(.2,.9,.2,1); max-width: 640px; margin: 0 auto; }
+  body.abierta #velo { opacity: 1; pointer-events: auto; }
+  body.abierta #hoja { transform: none; }
+
+  /* Formularios */
+  h3 { margin: 0 0 16px; font-size: 20px; }
+  h4 { margin: 22px 0 10px; font-size: 13px; color: var(--suave); font-weight: 600; }
+  .campo { margin-bottom: 16px; }
+  .peq, .campo > label { display: block; font-size: 12px; color: var(--suave); margin-bottom: 6px; }
+  input[type=text], input[type=number], input[type=date], input[type=email], select, textarea { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; font-size: 16px; color-scheme: dark; box-shadow: inset 0 1px 2px rgba(0,0,0,.25); }
+  textarea { margin-bottom: 8px; font-size: 13px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--acento); outline-offset: -1px; }
+  input[type=color].color { width: 46px; height: 46px; padding: 3px; border-radius: 14px; flex: none; background: rgba(255,255,255,.07); border: 1px solid var(--linea); cursor: pointer; }
+  .fila2 { display: flex; gap: 8px; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border-radius: 999px; padding: 8px 14px; cursor: pointer; white-space: nowrap; transition: all .2s; }
+  .chip.sel { background: linear-gradient(135deg, rgba(90,169,255,.3), rgba(143,123,255,.3)); border-color: rgba(143,170,255,.7); color: #fff; }
+  .chip small { color: var(--suave); margin-left: 5px; }
+  .interruptor { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+  .interruptor small { color: var(--suave); display: block; font-size: 12px; margin-top: 2px; }
+  .interruptor input { width: 22px; height: 22px; accent-color: var(--acento); flex: none; }
+  .btn { width: 100%; background: linear-gradient(135deg, var(--acento), var(--acento2)); color: #fff; font-weight: 600; border: 1px solid rgba(255,255,255,.3); border-radius: 14px; padding: 13px; margin-top: 8px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 6px 20px rgba(100,120,255,.3); transition: transform .15s; }
+  .btn:active { transform: scale(.98); }
+  .btn.sec { color: var(--texto); box-shadow: var(--brillo); }
+  .btn.peligro { background: transparent; border-color: transparent; box-shadow: none; color: var(--peligro); }
+  .cat { border-radius: 16px; padding: 12px; margin-bottom: 10px; display: grid; gap: 10px; }
+  .cat .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cat .cab { display: flex; gap: 8px; align-items: center; }
+  .cat .borrar, .x { background: none; border: 0; color: var(--suave); font-size: 22px; padding: 0 8px; cursor: pointer; flex: none; }
+  .cat .borrar:disabled { opacity: .25; }
+  .nota { color: var(--suave); font-size: 12px; margin: 4px 0 12px; line-height: 1.4; }
+  .nums2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* SIMULACIÓN (solo en la versión de pruebas) */
+  .sim { border: 1px dashed var(--aviso); border-radius: 16px; padding: 14px; margin-top: 22px; }
+  .sim h4 { margin: 0 0 4px; color: var(--aviso); }
+  .sim .fecha { font-size: 14px; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+  .sim .botones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+  .sim .botones .btn { margin: 0; padding: 10px 4px; font-size: 14px; }
+
+  #aviso { position: fixed; left: 18px; right: 18px; bottom: calc(var(--abajo) + 86px); max-width: 604px; margin: 0 auto; border-radius: 18px; padding: 12px 16px; display: none; justify-content: space-between; align-items: center; animation: sube .3s cubic-bezier(.2,.9,.2,1); background: rgba(22,30,46,.8); }
+  @keyframes sube { from { opacity: 0; transform: translateY(14px); } }
+  #aviso button { background: none; border: 0; color: var(--acento); font-weight: 600; cursor: pointer; }
+
+  [hidden] { display: none !important; }
+  .sync { width: 9px; height: 9px; border-radius: 50%; background: #6b7688; margin-left: -2px; transition: background .3s; }
+  .sync.ok { background: #35d6a4; box-shadow: 0 0 8px #35d6a4; } .sync.pend { background: #f0b429; } .sync.off { background: #ff6b6b; }
+  #login { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(5,8,14,.75); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .lcard { width: min(400px, 100%); background: rgba(18,26,40,.8); border: 1px solid var(--linea); border-radius: 28px; padding: 28px 22px; box-shadow: var(--brillo), var(--sombra); text-align: center; animation: sube .4s cubic-bezier(.2,.9,.2,1); }
+  .lcard .logo { width: 54px; height: 54px; } .lcard h2 { margin: 8px 0 6px; font-size: 26px; letter-spacing: -0.02em; }
+  .lcard input { margin-bottom: 8px; text-align: center; }
+
+  /* ---------- VISTA DE ORDENADOR ---------- */
+  @media (min-width: 900px) {
+    .app { max-width: none; margin: 0; padding: 0; display: grid; grid-template-columns: 370px 1fr; min-height: 100vh; }
+    #hub { display: block; border-radius: 0; border-top: 0; border-bottom: 0; border-left: 0; padding: 28px 22px; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+    main { padding: 30px clamp(24px, 5vw, 64px); max-width: 840px; width: 100%; }
+    #nueva, #ajustes { display: none; }
+    #aviso { left: auto; right: 28px; bottom: 28px; width: 340px; }
+    #hoja { left: 50%; right: auto; bottom: auto; top: 50%; width: 500px; border-radius: 26px; border-bottom: 1px solid var(--linea); padding-bottom: 22px; transform: translate(-50%, -46%) scale(.97); opacity: 0; pointer-events: none; transition: transform .3s cubic-bezier(.2,.9,.2,1), opacity .25s; }
+    body.abierta #hoja { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="fondo"><i></i><i></i><i></i></div>
+<div class="app">
+
+  <!-- Barra lateral (solo ordenador) -->
+  <aside id="hub">
+    <button class="btn" id="nuevaEsc" style="margin:0 0 8px">+ Nueva tarea</button>
+    <div id="hubAjustes"></div>
+  </aside>
+
+  <main>
+    <div class="marca">
+      <svg class="logo" viewBox="0 0 48 48"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9ff"/><stop offset="1" stop-color="#8f7bff"/></linearGradient></defs>
+        <circle cx="24" cy="24" r="17" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="5"/>
+        <path d="M24 7a17 17 0 1 1-12 29" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="24" r="4" fill="url(#lg)"/></svg>
+      <span>Kairos</span><span class="sync" id="sync" title="Sin cuenta"></span>
+      <div class="acciones">
+        <button class="icono" id="ajustes" aria-label="Categorías y ajustes"><svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.4" fill="#0b1019"/><circle cx="15" cy="17" r="2.4" fill="#0b1019"/></svg></button>
+        <button class="icono" id="avatar" aria-label="Tu espacio"></button>
+      </div>
+    </div>
+    <header><h1>Prioridades</h1><div id="contador"></div></header>
+    <div class="chips tabs"><button class="chip sel" id="tabPri">Prioridades</button><button class="chip" id="tabAsig">Asignaturas</button></div>
+    <p class="leyenda">El color de cada tarea se intensifica según sube su importancia.</p>
+    <div class="filtros" id="filtros"></div>
+    <div id="tareas"></div>
+    <div id="asigs"></div>
+  </main>
+</div>
+
+<button id="nueva">+ Nueva tarea</button>
+<div id="aviso"><span>Tarea completada</span><button id="deshacer">Deshacer</button></div>
+<div id="login" hidden><div class="lcard">
+  <svg class="logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="5"/><path d="M24 7a17 17 0 1 1-12 29" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="24" r="4" fill="url(#lg)"/></svg>
+  <h2>Kairos</h2>
+  <p class="nota">Entra con tu correo para tener las mismas tareas en todos tus dispositivos.</p>
+  <input type="email" id="lEmail" placeholder="tu@correo.com" autocomplete="email" autocapitalize="none">
+  <button class="btn" id="lEnviar">Enviarme un código</button>
+  <div id="lPaso2" hidden><input type="text" id="lCodigo" inputmode="numeric" autocomplete="one-time-code" placeholder="Código del correo"><button class="btn" id="lEntrar">Entrar</button></div>
+  <p class="nota" id="lMsg"></p>
+  <button class="btn peligro" id="lSin">Seguir sin sincronizar</button>
+</div></div>
+<div id="velo"></div>
+<div id="hoja"></div>
+
+<script>
+  /* ---------- 3. LÓGICA ---------- */
+  const DIA = 86400000;
+  const $ = (id) => document.getElementById(id);
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const PALETA = ["#ff5d73", "#5aa9ff", "#35d6a4", "#b08cff", "#ffb13d", "#4dd0e1", "#ff8fd1"];
+  const baseCats = () => [
+    { id: 1, nombre: "Salud", base: 8, ritmo: 0.2, tope: 12, color: PALETA[0] }, { id: 2, nombre: "Trabajo", base: 5, ritmo: 0.6, tope: 12, color: PALETA[1] },
+    { id: 3, nombre: "Hogar", base: 3, ritmo: 1.0, tope: 12, color: PALETA[2] }, { id: 4, nombre: "Ocio", base: 1, ritmo: 0.5, tope: 8, color: PALETA[3] }];
+
+  /* --- Memoria (localStorage) --- */
+  const CLAVE = "prioridades-v1";
+  // Completa y repara un estado (sea local, de la nube o de una copia antigua)
+  function normalizar(e) {
+    if (e.filtro === undefined || !e.categorias.some((c) => c.id === e.filtro)) e.filtro = null;   // null = ver todas
+    if (!e.usuario) e.usuario = { nombre: "" };
+    e.categorias.forEach((c, i) => { if (!c.color) c.color = c.nombre === "Estudio" ? "#ffb13d" : PALETA[i % PALETA.length]; });
+    if (!e.asignaturas) e.asignaturas = [];   // asignaturas con sus exámenes
+    if (!e.horas) e.horas = [];               // historial: { t, asigId, horas }
+    e.config = Object.assign({ urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5] }, e.config);   // ajustes de la fecha límite y tope total
+    e.categorias.forEach((c) => { if (c.tope == null) c.tope = c.nombre === "Ocio" ? 8 : 12; });   // tope por categoría
+    e.tareas.forEach((t) => {   // completa las tareas guardadas con versiones antiguas
+      if (t.ultima == null) t.ultima = t.creada;
+      if (t.rec == null) t.rec = 1;
+      if (t.fin === undefined) t.fin = null;
+      if (t.base === undefined) t.base = null;   // importancia propia (null = la de la categoría)
+      if (t.ciclo == null) t.ciclo = 8;          // días que tarda una rutina en volver a su máximo
+      if (t.quita == null) t.quita = 3;      // puntos que pierde al marcarla
+      if (t.tasa == null) t.tasa = 1;        // puntos que recupera por día
+      if (t.pen == null) { t.pen = 0; t.penT = 0; }   // penalización acumulada y cuándo se anotó
+    });
+    return e;
+  }
+  function cargar() {
+    let e = null;
+    try { const r = localStorage.getItem(CLAVE); if (r) e = JSON.parse(r); } catch (x) {}
+    return normalizar(e || { categorias: baseCats(), tareas: [], sig: 100 });
+  }
+  // Cada cambio: se guarda en el dispositivo con la hora ("mod") y se programa su subida a la nube
+  function guardar() { estado.mod = Date.now(); try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {} subirLuego(); }
+  let estado = cargar();
+
+  /* --- El reloj. SIMULACIÓN (temporal): "desfase" adelanta el reloj; al borrar la simulación, ahora() = Date.now() --- */
+  const SIMULACION = false;   // true = versión de pruebas con el panel de simulación
+  const CLAVE_SIM = "prioridades-sim";
+  let desfase = 0, velocidad = 0;   // velocidad = ms simulados por cada segundo real
+  if (SIMULACION) try { desfase = Number(localStorage.getItem(CLAVE_SIM)) || 0; } catch (e) {}
+  const guardarSim = () => { try { localStorage.setItem(CLAVE_SIM, desfase); } catch (e) {} };
+  const ahora = () => Date.now() + desfase;
+
+  /* --- LA FÓRMULA ---
+     "base" = la importancia propia de la tarea o, si no tiene, la de su categoría.
+     · CON fecha límite:  base + cercanía − puntos perdidos al estudiar   (cercanía = máx ÷ (1 + días que faltan ÷ mitad))
+     · RUTINA (se repite, sin fecha): al marcarla baja a 0 y sube cada día hasta llegar a su base en "ciclo" días
+     · NORMAL (sin fecha, no se repite): base + puntos por día de la categoría × días esperando
+     · TOPE: nunca pasa del tope de su categoría ni del total (si pones importancia propia, solo cuenta el tope total).
+             Los puntos perdidos se restan después del tope. Si empatan, va primero la de mayor valor real. */
+  function puntosPorHoras(h) {
+    const X = [0, 1.5, 3.5, 6.5], Y = [0, ...estado.config.estudio];
+    for (let i = 1; i < 4; i++) if (h <= X[i]) return Y[i - 1] + (Y[i] - Y[i - 1]) * (h - X[i - 1]) / (X[i] - X[i - 1]);
+    return Y[3] + ((Y[3] - Y[2]) / (X[3] - X[2])) * 0.5 * (h - X[3]);
+  }
+  function calcular(t) {
+    const cat = estado.categorias.find((c) => c.id === t.catId) || { nombre: "?", base: 0, ritmo: 0, color: "#5aa9ff" };
+    const n = ahora(), base = t.base != null ? t.base : cat.base;
+    const dias = Math.max(0, (n - t.ultima) / DIA);
+    let modo = "normal", porTiempo = 0, urg = 0, resta = null, pen = 0, frac = 1, bruto;
+    if (t.fin) {
+      modo = "fecha"; resta = (t.fin - n) / DIA;
+      urg = estado.config.urgMax / (1 + Math.max(0, resta) / estado.config.mitad);
+      if (t.rep && t.pen) pen = Math.max(0, t.pen - t.tasa * Math.max(0, (n - t.penT) / DIA));
+      bruto = base + urg;
+    } else if (t.rep) {
+      modo = "rutina"; frac = Math.min(1, dias / (t.ciclo || 8)); bruto = base * frac;
+    } else { porTiempo = cat.ritmo * dias; bruto = base + porTiempo; }
+    const techo = t.base != null ? estado.config.tope : Math.min(cat.tope ?? 12, estado.config.tope);
+    return { cat, base, modo, frac, porTiempo, urg, resta, pen, topado: bruto > techo, real: bruto - pen, total: Math.max(0, Math.min(bruto, techo) - pen) };
+  }
+  // Cada categoría tiene su color (solo se usa su tono); cuanto más importante, más saturado, claro y con más brillo
+  function tono(hex) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255, g = parseInt(hex.slice(3, 5), 16) / 255, b = parseInt(hex.slice(5, 7), 16) / 255;
+    const mx = Math.max(r, g, b), d = mx - Math.min(r, g, b);
+    if (!d) return 215;
+    const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return (Math.round(h * 60) + 360) % 360;
+  }
+  function estiloBarra(cat, total, maximo) {
+    const t = Math.min(1, total / Math.max(maximo, 10)), c = `hsl(${tono(cat.color || "#5aa9ff")} ${Math.round(14 + 76 * t)}% ${Math.round(38 + 24 * t)}%)`;
+    return `background:${c};box-shadow:0 0 ${Math.round(2 + 18 * t)}px ${c}`;
+  }
+  function dur(d) {
+    if (d >= 1) return Math.floor(d) + " d " + Math.floor((d % 1) * 24) + " h";
+    if (d >= 1 / 24) return Math.floor(d * 24) + " h";
+    return Math.max(1, Math.floor(d * 1440)) + " min";
+  }
+  const aTexto = (ms) => { const d = new Date(ms); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const aMs = (txt) => new Date(txt + "T23:59:00").getTime();
+
+  let vista = "pri", htmlFiltros = "", htmlLista = "";
+  // Pinta la lista y anima: las tareas nuevas aparecen deslizándose y las que cambian de sitio se desplazan suavemente
+  function pintarLista(html) {
+    if (html === htmlLista) return;                                  // si nada cambió, no se toca
+    const antes = {};
+    document.querySelectorAll("#tareas .tarea").forEach((el) => antes[el.dataset.id] = el.getBoundingClientRect().top);
+    $("tareas").innerHTML = html; htmlLista = html;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let k = 0;
+    document.querySelectorAll("#tareas .tarea").forEach((el) => {
+      const a = antes[el.dataset.id];
+      if (a == null) el.animate([{ opacity: 0, transform: "translateY(12px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 400, delay: Math.min(k++, 8) * 45, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+      else { const dy = a - el.getBoundingClientRect().top; if (Math.abs(dy) > 1) el.animate([{ transform: `translateY(${dy}px)` }, { transform: "none" }], { duration: 450, easing: "cubic-bezier(.2,.8,.2,1)" }); }
+    });
+  }
+
+  // La tarea "Estudiar X" de cada asignatura siempre apunta a su próximo examen
+  function sincronizar() {
+    const n = ahora();
+    estado.asignaturas.forEach((a) => {
+      const t = estado.tareas.find((x) => x.auto && x.asigId === a.id); if (!t) return;
+      const prox = a.examenes.filter((e) => e.fecha >= n).sort((x, y) => x.fecha - y.fecha)[0];
+      t.fin = prox ? prox.fecha : null; t.examen = prox ? prox.nombre : null; t.nombre = "Estudiar " + a.nombre;
+    });
+  }
+  function crearAsignatura(nombre, examenes) {
+    let cat = estado.categorias.find((c) => c.nombre === "Estudio");
+    if (!cat) { cat = { id: estado.sig++, nombre: "Estudio", base: 5, ritmo: 0.6, tope: 12, color: "#ffb13d" }; estado.categorias.push(cat); }
+    const a = { id: estado.sig++, nombre, examenes };
+    estado.asignaturas.push(a);
+    estado.tareas.push({ id: estado.sig++, nombre: "Estudiar " + nombre, catId: cat.id, rep: true, auto: true, asigId: a.id, fin: null, tasa: 1, pen: 0, penT: 0, rec: 1, creada: ahora(), ultima: ahora() });
+    return a;
+  }
+  function dibujarLista() {
+    sincronizar(); document.body.dataset.vista = vista;
+    const todas = estado.tareas.map((t) => ({ t, ...calcular(t) })).sort((a, b) => (b.total - a.total) || (b.real - a.real));
+    const datos = estado.filtro == null ? todas : todas.filter((d) => d.t.catId === estado.filtro);   // la vista elegida
+    const maximo = estado.config.tope;   // el color va de 0 al tope total
+    const suma = datos.reduce((a, d) => a + d.total, 0);   // cómputo total de puntos de lo que se ve
+    $("contador").textContent = datos.length + (datos.length === 1 ? " tarea" : " tareas") + " · " + suma.toFixed(1) + " puntos";
+    const cuentas = {}; todas.forEach((d) => cuentas[d.t.catId] = (cuentas[d.t.catId] || 0) + 1);
+    const htmlF = `<button class="chip ${estado.filtro == null ? "sel" : ""}" data-f="">Todas<small>${todas.length}</small></button>` +
+      estado.categorias.map((c) => `<button class="chip ${estado.filtro === c.id ? "sel" : ""}" data-f="${c.id}"><span class="pt" style="background:${c.color}"></span>${esc(c.nombre)}<small>${cuentas[c.id] || 0}</small></button>`).join("");
+    if (htmlF !== htmlFiltros) { $("filtros").innerHTML = htmlF; htmlFiltros = htmlF; }   // solo se redibuja si cambia
+    const htmlT = datos.length ? datos.map((d) => {
+      const fin = d.resta == null ? "" : d.resta < 0 ? ` · <em>vencida</em>` : ` · <em>${d.t.examen ? esc(d.t.examen) : "vence"} en ${dur(d.resta)}</em>`;
+      const desglose = d.modo === "rutina" ? `${d.base} × ${Math.round(d.frac * 100)} %` : `${d.base} + ` + (d.modo === "fecha" ? d.urg.toFixed(1) : d.porTiempo.toFixed(1)) + (d.pen > 0.05 ? ` − ${d.pen.toFixed(1)}` : "") + (d.topado ? " · tope" : "");
+      return `<div class="tarea" data-id="${d.t.id}">
+        <div class="barra" style="${estiloBarra(d.cat, d.total, maximo)}"></div>
+        <button class="hecho" aria-label="Completar"></button>
+        <div class="nombre"><b>${esc(d.t.nombre)}</b><span>${esc(d.cat.nombre)}${d.modo === "rutina" ? " · rutina" + (d.frac < 1 ? " · al máximo en " + dur((1 - d.frac) * (d.t.ciclo || 8)) : " · lista para hacer") : d.t.rep ? " · se repite" : ""}${fin}</span></div>
+        <div class="imp"><strong>${d.total.toFixed(1)}</strong><span>${desglose}</span></div></div>`;
+    }).join("") : todas.length ? '<div class="vacio">No hay tareas en esta categoría.</div>'
+      : '<div class="vacio">No hay tareas todavía.<br>Crea la primera con «Nueva tarea».</div>';
+    pintarLista(htmlT);
+    document.querySelectorAll(".simFecha").forEach((el) => el.textContent = new Date(ahora()).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }) + (desfase ? " (simulado)" : ""));
+    dibujarAsig();
+  }
+
+  // Pantalla de asignaturas: horas, próximo examen y posición en la prioridad
+  function dibujarAsig() {
+    const n = ahora(), r1 = (x) => Math.round(x * 10) / 10;
+    const todas = estado.tareas.map((t) => ({ t, ...calcular(t) })).sort((a, b) => (b.total - a.total) || (b.real - a.real));
+    const suma = (arr) => arr.reduce((x, h) => x + h.horas, 0);
+    const info = estado.asignaturas.map((a) => {
+      const hs = estado.horas.filter((h) => h.asigId === a.id);
+      return { a, total: suma(hs), semana: suma(hs.filter((h) => n - h.t < 7 * DIA)), ultimo: hs.length ? Math.max(...hs.map((h) => h.t)) : null,
+               prio: todas.find((d) => d.t.auto && d.t.asigId === a.id) };
+    }).sort((x, y) => (y.prio.total - x.prio.total) || (y.prio.real - x.prio.real));
+    const tot = suma(estado.horas), sem = suma(estado.horas.filter((h) => n - h.t < 7 * DIA));
+    if (vista === "asig") $("contador").textContent = info.length + (info.length === 1 ? " asignatura" : " asignaturas") + " · " + r1(tot) + " h en total · " + r1(sem) + " h esta semana";
+    $("asigs").innerHTML = '<button class="btn sec" id="nuevaAsig" style="margin:0 0 14px">+ Nueva asignatura</button>' + (info.length ? info.map((i, k) => {
+      const p = i.prio, ex = p.resta != null && p.resta >= 0 ? `${esc(p.t.examen)} en ${dur(p.resta)}` : "sin examen próximo";
+      return `<div class="asig" data-id="${i.a.id}">
+        <div class="cab2"><b>${esc(i.a.nombre)}</b><span class="pos">n.º ${k + 1} · ${p.total.toFixed(1)} pts</span></div>
+        <div class="det">Próximo: ${ex}<br>Esta semana ${r1(i.semana)} h · total ${r1(i.total)} h${tot ? " · " + Math.round(i.total / tot * 100) + " % del tiempo" : ""}<br>
+          ${i.ultimo ? "Último estudio hace " + dur((n - i.ultimo) / DIA) : "Aún sin horas registradas"}</div>
+        <div class="reparto"><i style="width:${tot ? i.total / tot * 100 : 0}%"></i></div></div>`;
+    }).join("") : '<div class="vacio">Aún no hay asignaturas.<br>Añade la primera con sus fechas de examen.</div>');
+  }
+
+  /* --- Ventana / hoja de formularios --- */
+  function abrir(html) { $("hoja").innerHTML = html; document.body.classList.add("abierta"); }
+  function cerrar() { document.body.classList.remove("abierta"); }
+  $("velo").onclick = cerrar;
+  function refrescar() { guardar(); dibujarLista(); ajustes($("hubAjustes")); }
+
+  function formTarea(t) {
+    let sel = t ? t.catId : (estado.filtro ?? estado.categorias[0].id);   // si estás en una vista, la propone
+    abrir(`<h3>${t ? "Editar tarea" : "Nueva tarea"}</h3>
+      <div class="campo"><label>Nombre</label><input type="text" id="fNombre" value="${t ? esc(t.nombre) : ""}" placeholder="¿Qué hay que hacer?" autocomplete="off"></div>
+      <div class="campo"><label>Categoría</label><div class="chips" id="chips"></div></div>
+      <div class="campo"><label>Importancia propia (vacío = la de la categoría)</label>
+        <input type="number" id="fBase" step="0.5" inputmode="decimal" value="${t && t.base != null ? t.base : ""}"></div>
+      ${estado.asignaturas.length ? '<div class="campo"><label>Asignatura (opcional)</label><div class="chips" id="chipsAsig"></div></div>' : ""}
+      <div class="campo"><label>Fecha límite (opcional)</label>
+        <div class="fila2"><input type="date" id="fFin" value="${t && t.fin ? aTexto(t.fin) : ""}"><button class="chip" id="fSin" type="button">Quitar</button></div></div>
+      <label class="interruptor"><span>Se repite<small>Al marcarla no se borra: baja y vuelve a subir (rutina)</small></span>
+        <input type="checkbox" id="fRep" ${t && t.rep ? "checked" : ""}></label>
+      <div id="fRecCaja"><div class="campo"><span class="peq">Recupera (puntos por día)</span>
+        <input type="number" id="fRec" step="0.5" min="0.1" inputmode="decimal" value="${t ? t.tasa : 1}">
+        <p class="nota">Al marcarla te preguntará cuántas horas has dedicado: más horas, más puntos pierde.</p></div></div>
+      <div class="campo" id="fCicloCaja"><span class="peq">Al marcarla baja a 0 y vuelve a su importancia máxima en (días)</span><input type="number" id="fCiclo" step="1" min="1" inputmode="numeric" value="${t && t.ciclo ? t.ciclo : 8}"></div>
+      ${t && t.asigId ? '<button class="btn sec" id="fHoras">Registrar horas dedicadas</button>' : ""}
+      <button class="btn" id="fGuardar">Guardar</button>
+      ${t ? '<button class="btn peligro" id="fBorrar">Eliminar tarea</button>' : '<button class="btn sec" id="fCancelar">Cancelar</button>'}`);
+    const pintar = () => $("chips").innerHTML = estado.categorias.map((c) =>
+      `<button class="chip ${c.id === sel ? "sel" : ""}" data-id="${c.id}">${esc(c.nombre)}<small>${c.base}</small></button>`).join("");
+    let asig = t ? t.asigId ?? null : null;
+    const pintarA = () => { if (!$("chipsAsig")) return; $("chipsAsig").innerHTML = `<button class="chip ${asig == null ? "sel" : ""}" data-id="">Ninguna</button>` +
+      estado.asignaturas.map((a) => `<button class="chip ${a.id === asig ? "sel" : ""}" data-id="${a.id}">${esc(a.nombre)}</button>`).join(""); };
+    pintarA();
+    if ($("chipsAsig")) $("chipsAsig").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { asig = b.dataset.id === "" ? null : Number(b.dataset.id); pintarA(); } };
+    if ($("fHoras")) $("fHoras").onclick = () => formHoras(t, t.asigId);
+    const ph = () => { const c = estado.categorias.find((x) => x.id === sel); $("fBase").placeholder = c ? "Categoría: " + c.base : ""; };
+    const mostrarRec = () => { const r = $("fRep").checked, f = $("fFin").value; $("fRecCaja").style.display = r && f ? "block" : "none"; $("fCicloCaja").style.display = r && !f ? "block" : "none"; };
+    pintar(); mostrarRec(); ph();
+    $("chips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { sel = Number(b.dataset.id); pintar(); ph(); } };
+    $("fRep").onchange = mostrarRec;
+    $("fSin").onclick = () => { $("fFin").value = ""; mostrarRec(); };
+    $("fFin").onchange = mostrarRec;
+    $("fGuardar").onclick = () => {
+      const nombre = $("fNombre").value.trim();
+      if (!nombre) return $("fNombre").focus();
+      const datos = { nombre, catId: sel, rep: $("fRep").checked, tasa: Math.max(0.1, Number($("fRec").value) || 1), asigId: asig,
+        base: $("fBase").value === "" ? null : Number($("fBase").value), ciclo: Math.max(1, Number($("fCiclo").value) || 8), fin: $("fFin").value ? aMs($("fFin").value) : null };
+      if (t) Object.assign(t, datos);
+      else estado.tareas.push({ id: estado.sig++, creada: ahora(), ultima: datos.rep && !datos.fin ? ahora() - datos.ciclo * DIA : ahora(), pen: 0, penT: 0, ...datos });
+      refrescar(); cerrar();
+    };
+    if (t) $("fBorrar").onclick = () => { estado.tareas = estado.tareas.filter((x) => x !== t); refrescar(); cerrar(); };
+    else $("fCancelar").onclick = cerrar;
+  }
+
+  function pintarUsuario() {
+    const n = estado.usuario.nombre;
+    $("avatar").innerHTML = n ? esc(n[0].toUpperCase()) : '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+  }
+  function formUsuario() {
+    abrir(`<h3>Tu espacio</h3>
+      <div class="campo"><label>Tu nombre</label><input type="text" id="uNombre" value="${esc(estado.usuario.nombre)}" placeholder="Cómo quieres que te llame" autocomplete="off"></div>
+      <div class="interruptor"><span id="uCuenta"></span></div>
+      <button class="btn sec" id="uSesion"></button>
+      <h4>Copia de seguridad</h4>
+      <p class="nota">Tus datos viven solo en este dispositivo. Copia este texto y guárdalo (por ejemplo en Notas); para recuperarlos, pégalo más abajo.</p>
+      <textarea id="uCopia" readonly rows="3"></textarea>
+      <button class="btn sec" id="uCopiar">Copiar copia de seguridad</button>
+      <textarea id="uPegar" rows="3" placeholder="Pega aquí una copia para restaurar" style="margin-top:14px"></textarea>
+      <button class="btn sec" id="uRestaurar">Restaurar desde el texto</button>
+      <button class="btn" id="uOk">Listo</button>`);
+    $("uCopia").value = JSON.stringify(estado);
+    $("uCuenta").innerHTML = sesion ? esc(sesion.user.email) + "<small>" + esc($("sync").title) + "</small>" : "Sin cuenta<small>Los datos solo están en este dispositivo</small>";
+    $("uSesion").textContent = sesion ? "Cerrar sesión" : "Iniciar sesión";
+    $("uSesion").onclick = async () => {
+      if (!sesion) { cerrar(); $("login").hidden = false; return; }
+      await subir(); try { localStorage.removeItem(CLAVE); } catch (x) {}   // sube lo pendiente y borra la copia local
+      await sb.auth.signOut(); location.reload();
+    };
+    $("uNombre").oninput = (e) => { estado.usuario.nombre = e.target.value.trim(); guardar(); pintarUsuario(); };
+    $("uCopiar").onclick = async () => {
+      try { await navigator.clipboard.writeText($("uCopia").value); $("uCopiar").textContent = "Copiado ✓"; }
+      catch (x) { $("uCopia").select(); $("uCopiar").textContent = "Selecciona el texto y cópialo a mano"; }
+    };
+    $("uRestaurar").onclick = (e) => {
+      if (!e.target.dataset.ok) { e.target.dataset.ok = 1; e.target.textContent = "Toca otra vez: sustituye tus datos actuales"; return; }
+      try {
+        const d = JSON.parse($("uPegar").value); if (!d.tareas || !d.categorias) throw 0;
+        d.mod = Date.now();   // la copia restaurada cuenta como el cambio más reciente
+        localStorage.setItem(CLAVE, JSON.stringify(d)); location.reload();
+      } catch (x) { e.target.textContent = "Ese texto no es una copia válida"; }
+    };
+    $("uOk").onclick = cerrar;
+  }
+
+  function formAsig(a) {
+    const ex = a ? a.examenes.map((e) => ({ ...e })) : [];
+    abrir(`<h3>${a ? "Editar asignatura" : "Nueva asignatura"}</h3>
+      <div class="campo"><label>Nombre</label><input type="text" id="aNombre" value="${a ? esc(a.nombre) : ""}" placeholder="Ej. Física" autocomplete="off"></div>
+      <div class="campo"><label>Exámenes</label><div id="aEx"></div>
+        <div class="chips" id="aTipos" style="margin-top:8px"><button class="chip" data-n="Parcial">+ Parcial</button><button class="chip" data-n="Práctico">+ Práctico</button><button class="chip" data-n="Final">+ Final</button></div>
+        <p class="nota">Un examen sin fecha no se guarda. «Estudiar» apunta siempre al próximo examen que quede.</p></div>
+      <button class="btn" id="aOk">Guardar</button>
+      ${a ? '<button class="btn peligro" id="aDel">Eliminar asignatura</button>' : '<button class="btn sec" id="aNo">Cancelar</button>'}`);
+    const pintar = () => $("aEx").innerHTML = ex.map((e, i) => `<div class="fila2" style="margin-bottom:8px">
+      <input type="text" data-i="${i}" data-k="nombre" value="${esc(e.nombre)}" style="flex:1">
+      <input type="date" data-i="${i}" data-k="fecha" value="${e.fecha ? aTexto(e.fecha) : ""}" style="flex:1.3">
+      <button class="x" data-q="${i}" aria-label="Quitar">×</button></div>`).join("");
+    pintar();
+    $("aEx").oninput = (e) => { const i = e.target.dataset.i; if (i == null) return; const k = e.target.dataset.k; ex[i][k] = k === "fecha" ? (e.target.value ? aMs(e.target.value) : null) : e.target.value; };
+    $("aEx").onclick = (e) => { const b = e.target.closest(".x"); if (b) { ex.splice(Number(b.dataset.q), 1); pintar(); } };
+    $("aTipos").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { ex.push({ nombre: b.dataset.n, fecha: null }); pintar(); } };
+    $("aOk").onclick = () => {
+      const nombre = $("aNombre").value.trim(); if (!nombre) return $("aNombre").focus();
+      const examenes = ex.filter((e) => e.fecha).map((e) => ({ nombre: e.nombre.trim() || "Examen", fecha: e.fecha }));
+      if (a) { a.nombre = nombre; a.examenes = examenes; } else crearAsignatura(nombre, examenes);
+      refrescar(); cerrar();
+    };
+    if (a) $("aDel").onclick = (e) => {
+      if (!e.target.dataset.ok) { e.target.dataset.ok = 1; e.target.textContent = "Toca otra vez: borra también sus horas"; return; }
+      estado.tareas = estado.tareas.filter((x) => !(x.auto && x.asigId === a.id));
+      estado.tareas.forEach((x) => { if (x.asigId === a.id) x.asigId = null; });
+      estado.horas = estado.horas.filter((h) => h.asigId !== a.id);
+      estado.asignaturas = estado.asignaturas.filter((x) => x !== a);
+      refrescar(); cerrar();
+    };
+    if (!a) $("aNo").onclick = cerrar;
+  }
+
+  /* --- Panel de categorías, ajustes y simulación (en la barra lateral del ordenador o en una hoja en el móvil) --- */
+  function ajustes(cont) {
+    const filas = estado.categorias.map((c) => {
+      const enUso = estado.tareas.some((t) => t.catId === c.id);
+      return `<div class="cat" data-id="${c.id}">
+        <div class="cab"><input type="color" class="color" data-campo="color" value="${c.color || "#5aa9ff"}"><input type="text" data-campo="nombre" value="${esc(c.nombre)}"><button class="borrar" data-act="borrar" ${enUso ? "disabled" : ""} aria-label="Borrar">×</button></div>
+        <div class="nums">
+          <div><span class="peq">Base</span><input type="number" step="0.5" inputmode="decimal" data-campo="base" value="${c.base}"></div>
+          <div><span class="peq">Puntos/día</span><input type="number" step="0.1" inputmode="decimal" data-campo="ritmo" value="${c.ritmo}"></div>
+          <div><span class="peq">Tope</span><input type="number" step="0.5" inputmode="decimal" data-campo="tope" value="${c.tope}"></div>
+        </div></div>`; }).join("");
+    const op = (v, txt) => `<option value="${v}" ${velocidad === v ? "selected" : ""}>${txt}</option>`;
+    cont.innerHTML = `<h4>Categorías</h4>${filas}
+      <button class="btn sec" data-act="addCat">+ Nueva categoría</button>
+      <h4>Fecha límite y tope</h4>
+      <div class="nums2" style="grid-template-columns:repeat(3,1fr);gap:8px">
+        <div><span class="peq">Puntos de fecha</span><input type="number" step="1" inputmode="decimal" data-cfg="urgMax" value="${estado.config.urgMax}"></div>
+        <div><span class="peq">Días a la mitad</span><input type="number" step="1" inputmode="decimal" data-cfg="mitad" value="${estado.config.mitad}"></div>
+        <div><span class="peq">Tope total</span><input type="number" step="1" inputmode="decimal" data-cfg="tope" value="${estado.config.tope}"></div>
+      </div>
+      <h4>Puntos que pierde al estudiar</h4>
+      <div class="nums2" style="grid-template-columns:repeat(3,1fr);gap:8px">
+        <div><span class="peq">1,5 horas</span><input type="number" step="0.5" inputmode="decimal" data-est="0" value="${estado.config.estudio[0]}"></div>
+        <div><span class="peq">3,5 horas</span><input type="number" step="0.5" inputmode="decimal" data-est="1" value="${estado.config.estudio[1]}"></div>
+        <div><span class="peq">6,5 horas</span><input type="number" step="0.5" inputmode="decimal" data-est="2" value="${estado.config.estudio[2]}"></div>
+      </div>
+      <p class="nota">El tope de una categoría y el tope total frenan la subida de puntos. Una categoría con tareas no se puede borrar. Los datos se guardan solo en este dispositivo.</p>
+      <button class="btn peligro" data-act="borrarTodo">Borrar todos los datos</button>
+
+      ${SIMULACION ? `<div class="sim">
+        <h4>Simulación (temporal)</h4>
+        <div class="fecha simFecha"></div>
+        <div class="botones">
+          <button class="btn sec" data-act="sim" data-ms="3600000">+1 hora</button>
+          <button class="btn sec" data-act="sim" data-ms="86400000">+1 día</button>
+          <button class="btn sec" data-act="sim" data-ms="604800000">+1 semana</button>
+        </div>
+        <span class="peq">Avance automático</span>
+        <select data-act="vel">${op(0, "Parado")}${op(3600000, "1 segundo = 1 hora")}${op(86400000, "1 segundo = 1 día")}</select>
+        <button class="btn sec" data-act="escenario">Cargar escenario de exámenes</button>
+        <button class="btn sec" data-act="presente">Volver al presente</button>
+      </div>`: ""}`;
+    dibujarLista();
+    cont.oninput = (e) => {
+      const caja = e.target.closest(".cat");
+      if (caja) {
+        const c = estado.categorias.find((x) => x.id === Number(caja.dataset.id)), campo = e.target.dataset.campo;
+        c[campo] = campo === "nombre" || campo === "color" ? e.target.value : Number(e.target.value) || 0;
+      } else if (e.target.dataset.est != null) estado.config.estudio[Number(e.target.dataset.est)] = Math.max(0, Number(e.target.value) || 0);
+      else if (e.target.dataset.cfg) estado.config[e.target.dataset.cfg] = Math.max(1, Number(e.target.value) || 1);
+      else return;
+      guardar(); dibujarLista();
+    };
+    cont.onchange = (e) => { if (e.target.dataset.act === "vel") velocidad = Number(e.target.value); };
+    cont.onclick = (e) => {
+      const b = e.target.closest("[data-act]"); if (!b || b.tagName === "SELECT" || b.disabled) return;
+      const act = b.dataset.act, caja = b.closest(".cat");
+      if (act === "borrar") { const id = Number(caja.dataset.id); estado.categorias = estado.categorias.filter((c) => c.id !== id); if (estado.filtro === id) estado.filtro = null; }
+      else if (act === "addCat") estado.categorias.push({ id: estado.sig++, nombre: "Nueva", base: 1, ritmo: 0.5, tope: 12, color: PALETA[estado.categorias.length % PALETA.length] });
+      else if (act === "borrarTodo") {
+        if (!b.dataset.ok) { b.dataset.ok = 1; b.textContent = "Toca otra vez para confirmar"; return; }
+        estado = { categorias: baseCats(), tareas: [], sig: 100, config: { urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5] }, filtro: null, asignaturas: [], horas: [], usuario: estado.usuario };
+      } else if (act === "sim") { desfase += Number(b.dataset.ms); guardarSim(); dibujarLista(); return; }
+      else if (act === "presente") { desfase = 0; velocidad = 0; guardarSim(); }
+      else if (act === "escenario") {   // el ejemplo del examen: sube con la fecha, se marca, baja y vuelve a subir
+        const n = ahora(), cat = (nom) => (estado.categorias.find((c) => c.nombre === nom) || estado.categorias[0]).id;
+        const ex = (nom, d) => ({ nombre: nom, fecha: n + d * DIA });
+        const calc = crearAsignatura("Cálculo", [ex("Parcial", 14), ex("Final", 40)]);
+        const fis = crearAsignatura("Física", [ex("Final", 20)]);
+        const est = crearAsignatura("Estructuras", [ex("Práctico", 10), ex("Final", 45)]);
+        [[calc, 1, 3], [calc, 3, 2], [fis, 2, 1.5], [est, 4, 1]].forEach(([as, dias, h]) => estado.horas.push({ t: n - dias * DIA, asigId: as.id, horas: h }));
+        [["Llamar al dentista", "Salud", null, false, 0], ["Limpiar el balcón", "Hogar", null, false, 4.5], ["Ver esa serie", "Ocio", null, false, 2]]
+          .forEach(([nom, c, fin, rep, d]) => estado.tareas.push({ id: estado.sig++, nombre: nom, catId: cat(c), fin, rep, tasa: 1, pen: 0, penT: 0, creada: n - d * DIA, ultima: n - d * DIA }));
+      }
+      refrescar(); if (cont !== $("hubAjustes")) ajustes(cont);
+    };
+  }
+  $("avatar").onclick = formUsuario;
+  $("ajustes").onclick = () => { abrir('<h3>Ajustes</h3><div id="hojaAjustes"></div>'); ajustes($("hojaAjustes")); };
+
+  /* --- Completar tarea y registrar horas (con deshacer) --- */
+  let copia = null, cuenta = null;
+  const foto = () => JSON.stringify({ t: estado.tareas, h: estado.horas });
+  const registrar = (asigId, horas) => estado.horas.push({ t: ahora(), asigId, horas });
+  function avisar(texto) {
+    $("aviso").firstElementChild.textContent = texto; $("aviso").style.display = "flex"; clearTimeout(cuenta);
+    cuenta = setTimeout(() => $("aviso").style.display = "none", 4000);
+  }
+  function completar(t, horas) {
+    copia = foto();
+    let texto = "Tarea completada";
+    if (t.rep && (t.fin || t.asigId)) {                                // se estudia: se pregunta por las horas
+      if (t.fin) { const p = puntosPorHoras(horas); t.pen = calcular(t).pen + p; t.penT = ahora(); texto = "Registradas " + horas + " h · −" + p.toFixed(1) + " puntos"; }
+      else { t.ultima = ahora(); texto = "Registradas " + horas + " h"; }
+      if (t.asigId && horas > 0) registrar(t.asigId, horas);           // y se guardan en el historial
+    } else if (t.rep) t.ultima = ahora();                              // sin fecha: su tiempo vuelve a cero
+    else estado.tareas = estado.tareas.filter((x) => x !== t);         // única: desaparece
+    refrescar(); avisar(texto);
+  }
+  // Ventana para indicar cuántas horas has dedicado (soloAsig = solo guardar horas, sin perder puntos)
+  function formHoras(t, soloAsig) {
+    let horas = 2;
+    const pierde = !soloAsig && t.rep && t.fin, asigId = soloAsig || t.asigId, asg = estado.asignaturas.find((x) => x.id === asigId);
+    abrir(`<h3>${esc(t.nombre)}</h3>
+      <div class="campo"><label>¿Cuántas horas has dedicado?</label><div class="chips" id="hChips"></div></div>
+      <div class="campo"><label>O escríbelo</label><input type="number" id="hNum" step="0.5" min="0" inputmode="decimal" value="2"></div>
+      <p class="nota" id="hPrev"></p>
+      <button class="btn" id="hOk">Registrar</button><button class="btn sec" id="hNo">Cancelar</button>`);
+    const pintar = () => {
+      $("hChips").innerHTML = [0.5, 1, 2, 3, 4, 6, 8].map((h) => `<button class="chip ${h === horas ? "sel" : ""}" data-h="${h}">${h} h</button>`).join("");
+      $("hPrev").textContent = pierde ? "Pierde " + puntosPorHoras(horas).toFixed(1) + " puntos" : "Se suman a " + (asg ? asg.nombre : "el historial");
+    };
+    pintar();
+    $("hChips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { horas = Number(b.dataset.h); $("hNum").value = horas; pintar(); } };
+    $("hNum").oninput = (e) => { horas = Math.max(0, Number(e.target.value) || 0); pintar(); };
+    $("hOk").onclick = () => {
+      cerrar();
+      if (soloAsig) { copia = foto(); registrar(soloAsig, horas); refrescar(); avisar("Registradas " + horas + " h"); } else completar(t, horas);
+    };
+    $("hNo").onclick = cerrar;
+  }
+  $("tareas").onclick = (e) => {
+    const fila = e.target.closest(".tarea"); if (!fila) return;
+    const t = estado.tareas.find((x) => x.id === Number(fila.dataset.id));
+    if (!e.target.closest(".hecho")) return t.auto ? formAsig(estado.asignaturas.find((x) => x.id === t.asigId)) : formTarea(t);   // tocar la fila = editar
+    if (t.rep && (t.fin || t.asigId)) formHoras(t); else completar(t, 0);
+  };
+  $("deshacer").onclick = () => { const f = JSON.parse(copia); estado.tareas = f.t; estado.horas = f.h; refrescar(); $("aviso").style.display = "none"; };
+  $("nueva").onclick = $("nuevaEsc").onclick = () => formTarea(null);
+  const cambiarVista = (v) => { vista = v; $("tabPri").classList.toggle("sel", v === "pri"); $("tabAsig").classList.toggle("sel", v === "asig"); dibujarLista(); };
+  $("tabPri").onclick = () => cambiarVista("pri");
+  $("tabAsig").onclick = () => cambiarVista("asig");
+  $("asigs").onclick = (e) => {
+    if (e.target.closest("#nuevaAsig")) return formAsig(null);
+    const c = e.target.closest(".asig"); if (c) formAsig(estado.asignaturas.find((x) => x.id === Number(c.dataset.id)));
+  };
+  $("filtros").onclick = (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    estado.filtro = b.dataset.f === "" ? null : Number(b.dataset.f);
+    guardar(); dibujarLista();
+  };
+
+  // El reloj interno: refresca cada 30 s (o cada 0,5 s si hay simulación automática)
+  let n = 0;
+  setInterval(() => {
+    if (velocidad) { desfase += velocidad / 2; guardarSim(); dibujarLista(); }
+    else if (++n % 60 === 0) dibujarLista();
+  }, 500);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) { dibujarLista(); traer(); } });
+  /* ---------- NUBE (Supabase): login por correo y sincronización ---------- */
+  const SUPA_URL = "https://dfxypoltwizzszozuweq.supabase.co";
+  const SUPA_KEY = "sb_publishable_9qVxZEklpS88aMsMHyvE-w_zYS7dnjJ";   // clave pública: la seguridad la ponen las reglas de la tabla
+  const sb = window.supabase ? window.supabase.createClient(SUPA_URL, SUPA_KEY) : null;   // null = sin conexión al abrir
+  let sesion = null, pendiente = false, subiendo = false, sucio = 0, temporizadorSync = null;
+
+  function marcarEstado(texto, clase) { $("sync").className = "sync " + clase; $("sync").title = texto; }
+  function subirLuego() {                       // cada cambio espera 0,8 s por si vienen más, y se sube
+    if (!sesion) return;
+    pendiente = true; sucio++; marcarEstado("Guardando…", "pend");
+    clearTimeout(temporizadorSync); temporizadorSync = setTimeout(subir, 800);
+  }
+  async function subir() {                      // todo el estado va en una sola fila de la tabla "estado"
+    if (!sesion || subiendo) return;
+    subiendo = true; const version = sucio;
+    try {
+      const { error } = await sb.from("estado").upsert({ user_id: sesion.user.id, datos: estado, actualizado: new Date().toISOString() });
+      if (error) throw error;
+      pendiente = sucio !== version; marcarEstado("Sincronizado", "ok");
+    } catch (e) { marcarEstado("Sin conexión: se subirá cuando vuelva", "off"); }
+    subiendo = false;
+    if (pendiente && sucio !== version) subirLuego();
+  }
+  function adoptar(d) {                         // sustituye lo local por lo que hay en la nube
+    estado = normalizar(d); pendiente = false;
+    try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {}
+    dibujarLista(); ajustes($("hubAjustes")); pintarUsuario();
+  }
+  async function traer() {                      // la regla: gana el cambio más reciente
+    if (!sesion || subiendo || document.body.classList.contains("abierta")) return;
+    try {
+      const { data, error } = await sb.from("estado").select("datos").maybeSingle();
+      if (error) throw error;
+      const vacio = (e) => !e.tareas.length && !e.asignaturas.length && !e.horas.length;
+      if (!data) { if (!vacio(estado)) await subir(); else marcarEstado("Sincronizado", "ok"); return; }
+      const lm = estado.mod || 0, rm = data.datos.mod || 0;
+      if (vacio(estado) || rm > lm) adoptar(data.datos);
+      else if (lm > rm) await subir();
+      marcarEstado("Sincronizado", "ok");
+    } catch (e) { marcarEstado("Sin conexión", "off"); }
+  }
+  async function iniciarNube() {
+    if (!sb) { $("login").hidden = false; $("lMsg").textContent = "No se pudo cargar la conexión. Comprueba tu internet."; return; }
+    const { data } = await sb.auth.getSession();
+    sesion = data.session;
+    sb.auth.onAuthStateChange((evento, s) => {
+      const entra = !sesion && s; sesion = s;
+      if (entra) { $("login").hidden = true; traer(); }
+    });
+    if (sesion) traer(); else $("login").hidden = false;
+  }
+  $("lEnviar").onclick = async () => {
+    const email = $("lEmail").value.trim(); if (!email || !sb) return;
+    $("lMsg").textContent = "Enviando…";
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname } });
+    if (error) return $("lMsg").textContent = "No se pudo enviar: " + error.message;
+    $("lPaso2").hidden = false; $("lCodigo").focus();
+    $("lMsg").textContent = "Te he enviado un correo con un código. Escríbelo arriba (revisa también el spam).";
+  };
+  $("lEntrar").onclick = async () => {
+    const { error } = await sb.auth.verifyOtp({ email: $("lEmail").value.trim(), token: $("lCodigo").value.trim(), type: "email" });
+    if (error) $("lMsg").textContent = "Código incorrecto o caducado. Pide otro.";   // si va bien, onAuthStateChange entra solo
+  };
+  $("lSin").onclick = () => { $("login").hidden = true; };
+  setInterval(() => { if (pendiente) subir(); else traer(); }, 30000);           // reintenta y comprueba cambios de otros dispositivos
+  addEventListener("online", () => { if (pendiente) subir(); else traer(); });
+
+  pintarUsuario();
+  ajustes($("hubAjustes"));
+  iniciarNube();
+</script>
+</body>
+</html>
