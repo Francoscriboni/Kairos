@@ -77,8 +77,17 @@
   .filtros::-webkit-scrollbar { display: none; }
   .filtros .chip { flex: none; }
   .pt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
-  body[data-vista="asig"] #filtros, body[data-vista="asig"] #tareas, body[data-vista="asig"] .leyenda { display: none; }
-  body:not([data-vista="asig"]) #asigs { display: none; }
+  body[data-vista="asig"] #filtros, body[data-vista="asig"] #tareas, body[data-vista="asig"] .leyenda,
+  body[data-vista="pap"] #filtros, body[data-vista="pap"] #tareas, body[data-vista="pap"] .leyenda { display: none; }
+  body:not([data-vista="asig"]) #asigs, body:not([data-vista="pap"]) #pap { display: none; }
+  .progreso { margin: 0 0 16px; }
+  .pbar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; border: 1px solid var(--linea); }
+  .pbar i { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, var(--acento), var(--acento2)); transition: width .8s cubic-bezier(.2,.8,.2,1), background .4s; }
+  .pbar i.lleno { background: linear-gradient(90deg, #35d6a4, #5aa9ff); box-shadow: 0 0 12px rgba(53,214,164,.6); }
+  .progreso span { display: block; color: var(--suave); font-size: 12px; margin-top: 6px; }
+  .item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; margin-bottom: 8px; background: var(--panel); border: 1px solid var(--linea); box-shadow: var(--brillo); }
+  .item .pt { margin: 0; flex: none; }
+  .cerrar { position: sticky; top: 0; float: right; z-index: 2; width: 38px; height: 38px; margin: -6px -4px 0 8px; padding: 0; border-radius: 50%; border: 1px solid var(--linea); background: rgba(255,255,255,.14); font-size: 24px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
   .tabs { margin-bottom: 14px; }
   .asig { border-radius: 20px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: background .2s, transform .2s; box-shadow: var(--brillo), var(--sombra); }
   .asig .cab2 { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
@@ -179,11 +188,13 @@
       </div>
     </div>
     <header><h1>Prioridades</h1><div id="contador"></div></header>
-    <div class="chips tabs"><button class="chip sel" id="tabPri">Prioridades</button><button class="chip" id="tabAsig">Asignaturas</button></div>
+    <div class="progreso"><div class="pbar"><i id="pFill"></i></div><span id="pTxt"></span></div>
+    <div class="chips tabs"><button class="chip sel" id="tabPri">Prioridades</button><button class="chip" id="tabAsig">Asignaturas</button><button class="chip" id="tabPap">Papelera</button></div>
     <p class="leyenda">El color de cada tarea se intensifica según sube su importancia.</p>
     <div class="filtros" id="filtros"></div>
     <div id="tareas"></div>
     <div id="asigs"></div>
+    <div id="pap"></div>
   </main>
 </div>
 
@@ -221,8 +232,9 @@
     if (!e.usuario) e.usuario = { nombre: "" };
     e.categorias.forEach((c, i) => { if (!c.color) c.color = c.nombre === "Estudio" ? "#ffb13d" : PALETA[i % PALETA.length]; });
     if (!e.asignaturas) e.asignaturas = [];   // asignaturas con sus exámenes
+    if (!e.hechas) e.hechas = [];             // papelera: lo completado o eliminado (30 días)
     if (!e.horas) e.horas = [];               // historial: { t, asigId, horas }
-    e.config = Object.assign({ urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5] }, e.config);   // ajustes de la fecha límite y tope total
+    e.config = Object.assign({ urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5], meta: 3 }, e.config);   // ajustes de la fecha límite y tope total
     e.categorias.forEach((c) => { if (c.tope == null) c.tope = c.nombre === "Ocio" ? 8 : 12; });   // tope por categoría
     e.tareas.forEach((t) => {   // completa las tareas guardadas con versiones antiguas
       if (t.ultima == null) t.ultima = t.creada;
@@ -357,7 +369,32 @@
       : '<div class="vacio">No hay tareas todavía.<br>Crea la primera con «Nueva tarea».</div>';
     pintarLista(htmlT);
     document.querySelectorAll(".simFecha").forEach((el) => el.textContent = new Date(ahora()).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }) + (desfase ? " (simulado)" : ""));
-    dibujarAsig();
+    dibujarAsig(); dibujarPap(); pintarProgreso();
+  }
+
+  // Barra de progreso: tareas completadas hoy frente a la meta diaria
+  function pintarProgreso() {
+    const d0 = new Date(ahora()); d0.setHours(0, 0, 0, 0);
+    const hoy = estado.hechas.filter((h) => h.tipo === "hecha" && h.t >= d0.getTime()).length, meta = estado.config.meta;
+    $("pFill").style.width = Math.min(100, hoy / meta * 100) + "%";
+    $("pFill").classList.toggle("lleno", hoy >= meta);
+    $("pTxt").textContent = hoy >= meta ? "¡Meta de hoy cumplida! · " + hoy + " hechas" : "Hoy: " + hoy + " de " + meta + " hechas";
+  }
+  // Papelera: lo completado o eliminado en los últimos 30 días (se restaura lo que desapareció)
+  function dibujarPap() {
+    estado.hechas = estado.hechas.filter((h) => h.t >= ahora() - 30 * DIA);
+    const lista = [...estado.hechas].sort((a, b) => b.t - a.t);
+    if (vista === "pap") $("contador").textContent = lista.length + (lista.length === 1 ? " elemento" : " elementos") + " en los últimos 30 días";
+    let dia = "", html = lista.length ? '<button class="btn sec" id="vaciarPap" style="margin:0 0 14px">Vaciar papelera</button>' : "";
+    lista.forEach((h) => {
+      const d = new Date(h.t), etiqueta = d.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long" });
+      if (etiqueta !== dia) { dia = etiqueta; html += `<h4 style="text-transform:capitalize">${etiqueta}</h4>`; }
+      const cat = estado.categorias.find((c) => c.id === h.catId);
+      html += `<div class="item"><span class="pt" style="background:${cat ? cat.color : "#6b7688"}"></span>
+        <div class="nombre"><b>${esc(h.nombre)}</b><span>${h.tipo === "eliminada" ? "<em>Eliminada</em> · " : ""}${cat ? esc(cat.nombre) + " · " : ""}${d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}${h.horas ? " · " + h.horas + " h" : ""}</span></div>
+        ${h.tarea ? `<button class="chip" data-r="${h.id}">Restaurar</button>` : ""}</div>`;
+    });
+    $("pap").innerHTML = html || '<div class="vacio">La papelera está vacía.<br>Aquí aparece lo que completas o eliminas durante 30 días.</div>';
   }
 
   // Pantalla de asignaturas: horas, próximo examen y posición en la prioridad
@@ -383,7 +420,11 @@
   }
 
   /* --- Ventana / hoja de formularios --- */
-  function abrir(html) { $("hoja").innerHTML = html; document.body.classList.add("abierta"); }
+  function abrir(html) {   // todas las ventanas llevan un botón × arriba para cerrarlas
+    $("hoja").innerHTML = '<button class="cerrar" id="cerrarHoja" aria-label="Cerrar">×</button>' + html;
+    $("cerrarHoja").onclick = cerrar; $("hoja").scrollTop = 0; document.body.classList.add("abierta");
+  }
+  addEventListener("keydown", (e) => { if (e.key === "Escape") cerrar(); });
   function cerrar() { document.body.classList.remove("abierta"); }
   $("velo").onclick = cerrar;
   function refrescar() { guardar(); dibujarLista(); ajustes($("hubAjustes")); }
@@ -431,7 +472,10 @@
       else estado.tareas.push({ id: estado.sig++, creada: ahora(), ultima: datos.rep && !datos.fin ? ahora() - datos.ciclo * DIA : ahora(), pen: 0, penT: 0, ...datos });
       refrescar(); cerrar();
     };
-    if (t) $("fBorrar").onclick = () => { estado.tareas = estado.tareas.filter((x) => x !== t); refrescar(); cerrar(); };
+    if (t) $("fBorrar").onclick = () => {
+      estado.hechas.push({ id: estado.sig++, tipo: "eliminada", t: ahora(), nombre: t.nombre, catId: t.catId, horas: 0, tarea: JSON.parse(JSON.stringify(t)) });
+      estado.tareas = estado.tareas.filter((x) => x !== t); refrescar(); cerrar();
+    };
     else $("fCancelar").onclick = cerrar;
   }
 
@@ -529,6 +573,8 @@
         <div><span class="peq">Días a la mitad</span><input type="number" step="1" inputmode="decimal" data-cfg="mitad" value="${estado.config.mitad}"></div>
         <div><span class="peq">Tope total</span><input type="number" step="1" inputmode="decimal" data-cfg="tope" value="${estado.config.tope}"></div>
       </div>
+      <h4>Barra de progreso</h4>
+      <div class="nums2"><div><span class="peq">Meta diaria (tareas hechas)</span><input type="number" step="1" inputmode="numeric" data-cfg="meta" value="${estado.config.meta}"></div></div>
       <h4>Puntos que pierde al estudiar</h4>
       <div class="nums2" style="grid-template-columns:repeat(3,1fr);gap:8px">
         <div><span class="peq">1,5 horas</span><input type="number" step="0.5" inputmode="decimal" data-est="0" value="${estado.config.estudio[0]}"></div>
@@ -570,7 +616,7 @@
       else if (act === "addCat") estado.categorias.push({ id: estado.sig++, nombre: "Nueva", base: 1, ritmo: 0.5, tope: 12, color: PALETA[estado.categorias.length % PALETA.length] });
       else if (act === "borrarTodo") {
         if (!b.dataset.ok) { b.dataset.ok = 1; b.textContent = "Toca otra vez para confirmar"; return; }
-        estado = { categorias: baseCats(), tareas: [], sig: 100, config: { urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5] }, filtro: null, asignaturas: [], horas: [], usuario: estado.usuario };
+        estado = { categorias: baseCats(), tareas: [], sig: 100, config: { urgMax: 10, mitad: 7, tope: 12, estudio: [1, 3, 4.5], meta: 3 }, filtro: null, asignaturas: [], horas: [], hechas: [], usuario: estado.usuario };
       } else if (act === "sim") { desfase += Number(b.dataset.ms); guardarSim(); dibujarLista(); return; }
       else if (act === "presente") { desfase = 0; velocidad = 0; guardarSim(); }
       else if (act === "escenario") {   // el ejemplo del examen: sube con la fecha, se marca, baja y vuelve a subir
@@ -587,11 +633,11 @@
     };
   }
   $("avatar").onclick = formUsuario;
-  $("ajustes").onclick = () => { abrir('<h3>Ajustes</h3><div id="hojaAjustes"></div>'); ajustes($("hojaAjustes")); };
+  $("ajustes").onclick = () => { abrir('<h3>Ajustes</h3><div id="hojaAjustes"></div><button class="btn" id="hojaListo" style="margin-top:18px">Listo</button>'); ajustes($("hojaAjustes")); $("hojaListo").onclick = cerrar; };
 
   /* --- Completar tarea y registrar horas (con deshacer) --- */
   let copia = null, cuenta = null;
-  const foto = () => JSON.stringify({ t: estado.tareas, h: estado.horas });
+  const foto = () => JSON.stringify({ t: estado.tareas, h: estado.horas, d: estado.hechas });
   const registrar = (asigId, horas) => estado.horas.push({ t: ahora(), asigId, horas });
   function avisar(texto) {
     $("aviso").firstElementChild.textContent = texto; $("aviso").style.display = "flex"; clearTimeout(cuenta);
@@ -600,6 +646,8 @@
   function completar(t, horas) {
     copia = foto();
     let texto = "Tarea completada";
+    // Se anota en la papelera. Si la tarea desaparece (no se repite), se guarda una copia para poder restaurarla
+    estado.hechas.push({ id: estado.sig++, tipo: "hecha", t: ahora(), nombre: t.nombre, catId: t.catId, horas: horas || 0, tarea: t.rep ? null : JSON.parse(JSON.stringify(t)) });
     if (t.rep && (t.fin || t.asigId)) {                                // se estudia: se pregunta por las horas
       if (t.fin) { const p = puntosPorHoras(horas); t.pen = calcular(t).pen + p; t.penT = ahora(); texto = "Registradas " + horas + " h · −" + p.toFixed(1) + " puntos"; }
       else { t.ultima = ahora(); texto = "Registradas " + horas + " h"; }
@@ -636,11 +684,23 @@
     if (!e.target.closest(".hecho")) return t.auto ? formAsig(estado.asignaturas.find((x) => x.id === t.asigId)) : formTarea(t);   // tocar la fila = editar
     if (t.rep && (t.fin || t.asigId)) formHoras(t); else completar(t, 0);
   };
-  $("deshacer").onclick = () => { const f = JSON.parse(copia); estado.tareas = f.t; estado.horas = f.h; refrescar(); $("aviso").style.display = "none"; };
+  $("deshacer").onclick = () => { const f = JSON.parse(copia); estado.tareas = f.t; estado.horas = f.h; estado.hechas = f.d || []; refrescar(); $("aviso").style.display = "none"; };
   $("nueva").onclick = $("nuevaEsc").onclick = () => formTarea(null);
-  const cambiarVista = (v) => { vista = v; $("tabPri").classList.toggle("sel", v === "pri"); $("tabAsig").classList.toggle("sel", v === "asig"); dibujarLista(); };
+  const cambiarVista = (v) => { vista = v; $("tabPri").classList.toggle("sel", v === "pri"); $("tabAsig").classList.toggle("sel", v === "asig"); $("tabPap").classList.toggle("sel", v === "pap"); dibujarLista(); };
   $("tabPri").onclick = () => cambiarVista("pri");
   $("tabAsig").onclick = () => cambiarVista("asig");
+  $("tabPap").onclick = () => cambiarVista("pap");
+  $("pap").onclick = (e) => {
+    const vaciar = e.target.closest("#vaciarPap");
+    if (vaciar) {
+      if (!vaciar.dataset.ok) { vaciar.dataset.ok = 1; vaciar.textContent = "Toca otra vez para vaciar"; return; }
+      estado.hechas = []; return refrescar();
+    }
+    const b = e.target.closest("[data-r]"); if (!b) return;
+    const h = estado.hechas.find((x) => x.id === Number(b.dataset.r)); if (!h || !h.tarea) return;
+    const t = h.tarea; if (estado.tareas.some((x) => x.id === t.id)) t.id = estado.sig++;
+    estado.tareas.push(t); estado.hechas = estado.hechas.filter((x) => x !== h); refrescar();
+  };
   $("asigs").onclick = (e) => {
     if (e.target.closest("#nuevaAsig")) return formAsig(null);
     const c = e.target.closest(".asig"); if (c) formAsig(estado.asignaturas.find((x) => x.id === Number(c.dataset.id)));
