@@ -80,7 +80,8 @@
   body[data-vista="asig"] #filtros, body[data-vista="asig"] #tareas, body[data-vista="asig"] .leyenda,
   body[data-vista="pap"] #filtros, body[data-vista="pap"] #tareas, body[data-vista="pap"] .leyenda { display: none; }
   body:not([data-vista="asig"]) #asigs, body:not([data-vista="pap"]) #pap { display: none; }
-  body[data-vista="asig"] #tiempoLibre, body[data-vista="pap"] #tiempoLibre { display: none; }
+  button.item { width: 100%; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+  .item svg { width: 22px; height: 22px; stroke: var(--acento); fill: none; stroke-width: 1.8; flex: none; }
   .item strong { margin-left: auto; color: var(--acento); white-space: nowrap; }
   .item .nombre { flex: 1; }
   .progreso { margin: 0 0 16px; }
@@ -186,13 +187,13 @@
         <path d="M24 7a17 17 0 1 1-12 29" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="24" r="4" fill="url(#lg)"/></svg>
       <span>Kairos</span><span class="sync" id="sync" title="Sin cuenta"></span>
       <div class="acciones">
+        <button class="icono" id="herr" aria-label="Herramientas"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></svg></button>
         <button class="icono" id="ajustes" aria-label="Categorías y ajustes"><svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.4" fill="#0b1019"/><circle cx="15" cy="17" r="2.4" fill="#0b1019"/></svg></button>
         <button class="icono" id="avatar" aria-label="Tu espacio"></button>
       </div>
     </div>
     <header><h1>Prioridades</h1><div id="contador"></div></header>
     <div class="progreso"><div class="pbar"><i id="pFill"></i></div><span id="pTxt"></span></div>
-    <button class="btn sec" id="tiempoLibre" style="margin:0 0 14px">⏱ Tengo poco tiempo: ¿qué hago?</button>
     <div class="chips tabs"><button class="chip sel" id="tabPri">Prioridades</button><button class="chip" id="tabAsig">Asignaturas</button><button class="chip" id="tabPap">Papelera</button></div>
     <p class="leyenda">El color de cada tarea se intensifica según sube su importancia.</p>
     <div class="filtros" id="filtros"></div>
@@ -400,7 +401,7 @@
       if (etiqueta !== dia) { dia = etiqueta; html += `<h4 style="text-transform:capitalize">${etiqueta}</h4>`; }
       const cat = estado.categorias.find((c) => c.id === h.catId);
       html += `<div class="item"><span class="pt" style="background:${cat ? cat.color : "#6b7688"}"></span>
-        <div class="nombre"><b>${esc(h.nombre)}</b><span>${h.tipo === "eliminada" ? "<em>Eliminada</em> · " : ""}${cat ? esc(cat.nombre) + " · " : ""}${d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}${h.horas ? " · " + h.horas + " h" : ""}</span></div>
+        <div class="nombre"><b>${esc(h.nombre)}</b><span>${h.tipo === "eliminada" ? "<em>Eliminada</em> · " : ""}${cat ? esc(cat.nombre) + " · " : ""}${d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}${h.horas ? " · " + fmin(h.horas * 60) : ""}</span></div>
         ${h.tarea ? `<button class="chip" data-r="${h.id}">Restaurar</button>` : ""}</div>`;
     });
     $("pap").innerHTML = html || '<div class="vacio">La papelera está vacía.<br>Aquí aparece lo que completas o eliminas durante 30 días.</div>';
@@ -456,8 +457,6 @@
         <input type="number" id="fRec" step="0.5" min="0.1" inputmode="decimal" value="${t ? t.tasa : 1}">
         <p class="nota">Al marcarla te preguntará cuántas horas has dedicado: más horas, más puntos pierde.</p></div></div>
       <div class="campo" id="fCicloCaja"><span class="peq">Al marcarla baja a 0 y vuelve a su importancia máxima en (días)</span><input type="number" id="fCiclo" step="1" min="1" inputmode="numeric" value="${t && t.ciclo ? t.ciclo : 8}"></div>
-      ${t && t.dur && !(t.rep && t.fin) ? '<button class="btn sec" id="fMin">Registrar tiempo dedicado</button>' : ""}
-      ${t && t.asigId ? '<button class="btn sec" id="fHoras">Registrar horas dedicadas</button>' : ""}
       <button class="btn" id="fGuardar">Guardar</button>
       ${t ? '<button class="btn peligro" id="fBorrar">Eliminar tarea</button>' : '<button class="btn sec" id="fCancelar">Cancelar</button>'}`);
     const pintar = () => $("chips").innerHTML = estado.categorias.map((c) =>
@@ -467,8 +466,6 @@
       estado.asignaturas.map((a) => `<button class="chip ${a.id === asig ? "sel" : ""}" data-id="${a.id}">${esc(a.nombre)}</button>`).join(""); };
     pintarA();
     if ($("chipsAsig")) $("chipsAsig").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { asig = b.dataset.id === "" ? null : Number(b.dataset.id); pintarA(); } };
-    if ($("fHoras")) $("fHoras").onclick = () => formHoras(t, t.asigId);
-    if ($("fMin")) $("fMin").onclick = () => formMinutos(t);
     const ph = () => { const c = estado.categorias.find((x) => x.id === sel); $("fBase").placeholder = c ? "Categoría: " + c.base : ""; };
     const mostrarRec = () => { const r = $("fRep").checked, f = $("fFin").value; $("fRecCaja").style.display = r && f ? "block" : "none"; $("fCicloCaja").style.display = r && !f ? "block" : "none"; };
     pintar(); mostrarRec(); ph();
@@ -653,48 +650,61 @@
   /* --- Completar tarea y registrar horas (con deshacer) --- */
   let copia = null, cuenta = null;
   const foto = () => JSON.stringify({ t: estado.tareas, h: estado.horas, d: estado.hechas, s: estado.sesiones });
-  const registrar = (asigId, horas) => estado.horas.push({ t: ahora(), asigId, horas });
   function avisar(texto) {
     $("aviso").firstElementChild.textContent = texto; $("aviso").style.display = "flex"; clearTimeout(cuenta);
     cuenta = setTimeout(() => $("aviso").style.display = "none", 4000);
   }
-  function anotarTiempo(nombre, catId, min) { if (min > 0) estado.sesiones.push({ t: ahora(), min: Math.round(min), nombre, catId }); }
-  function completar(t, horas) {
+  // Suma el tiempo a la barra de progreso y, si la tarea es de una asignatura, a las horas de esa asignatura.
+  // Devuelve los ids para poder deshacerlo si restauras la tarea de la papelera.
+  function registrarTiempo(t, min) {
+    const r = {};
+    if (min > 0) {
+      r.sesId = estado.sig++; estado.sesiones.push({ id: r.sesId, t: ahora(), min: Math.round(min), nombre: t.nombre, catId: t.catId });
+      if (t.asigId) { r.horasId = estado.sig++; estado.horas.push({ id: r.horasId, t: ahora(), asigId: t.asigId, horas: min / 60 }); }
+    }
+    return r;
+  }
+  function completar(t, min) {
     copia = foto();
-    let texto = "Tarea completada";
-    // Se anota en la papelera. Si la tarea desaparece (no se repite), se guarda una copia para poder restaurarla
-    estado.hechas.push({ id: estado.sig++, tipo: "hecha", t: ahora(), nombre: t.nombre, catId: t.catId, horas: horas || 0, tarea: t.rep ? null : JSON.parse(JSON.stringify(t)) });
-    if (!(t.rep && (t.fin || t.asigId))) { anotarTiempo(t.nombre, t.catId, t.dur ? Math.max(0, t.dur - (t.avance || 0)) : 0); t.avance = 0; }   // cuenta lo que faltaba de la tarea
-    if (t.rep && (t.fin || t.asigId)) {                                // se estudia: se pregunta por las horas
-      if (t.fin) { const p = puntosPorHoras(horas); t.pen = calcular(t).pen + p; t.penT = ahora(); texto = "Registradas " + horas + " h · −" + p.toFixed(1) + " puntos"; }
-      else { t.ultima = ahora(); texto = "Registradas " + horas + " h"; }
-      if (t.asigId && horas > 0) registrar(t.asigId, horas);           // y se guardan en el historial
-      anotarTiempo(t.nombre, t.catId, (horas || 0) * 60);              // y suman a la barra de progreso
-    } else if (t.rep) t.ultima = ahora();                              // sin fecha: su tiempo vuelve a cero
+    const r = registrarTiempo(t, min), horas = min / 60;
+    let texto = "Actividad completada";
+    // Se anota en la papelera con una copia (si desaparece de la lista) y con los ids del tiempo registrado
+    estado.hechas.push({ id: estado.sig++, tipo: "hecha", t: ahora(), nombre: t.nombre, catId: t.catId, horas, sesId: r.sesId, horasId: r.horasId, tarea: t.rep ? null : JSON.parse(JSON.stringify(t)) });
+    if (t.rep && (t.fin || t.asigId)) {                                // sesión de estudio: pierde puntos según el tiempo
+      if (t.fin) { const p = puntosPorHoras(horas); t.pen = calcular(t).pen + p; t.penT = ahora(); texto = "Registrado " + fmin(min) + " · −" + p.toFixed(1) + " puntos"; }
+      else { t.ultima = ahora(); texto = "Registrado " + fmin(min); }
+    } else if (t.rep) { t.ultima = ahora(); t.avance = 0; }            // rutina: baja a 0
     else estado.tareas = estado.tareas.filter((x) => x !== t);         // única: desaparece
     refrescar(); avisar(texto);
   }
-  // Registrar tiempo a medias: la importancia no se mueve, pero la tarea recuerda lo que queda
-  function formMinutos(t) {
-    let m = 30;
+  // Registrar tiempo sin completar: la importancia no se mueve, pero la tarea recuerda lo que queda
+  function registrarParcial(t, min) {
+    copia = foto(); registrarTiempo(t, min);
+    t.avance = (t.avance || 0) + min; if (t.dur) t.avance = Math.min(t.dur, t.avance);
+    refrescar(); avisar("Registrado " + fmin(min) + (t.dur ? " · quedan " + fmin(Math.max(0, t.dur - t.avance)) : ""));
+  }
+  // Ventana del circulito: cuánto tiempo le has dedicado, y completarla o solo registrar el tiempo
+  function formCompletar(t) {
+    const estudio = t.rep && (t.fin || t.asigId);                      // las sesiones de estudio siempre se registran
+    const resto = t.dur ? Math.max(0, t.dur - (t.avance || 0)) : 0;
+    let m = estudio ? (t.dur || 60) : (resto || 30);
     abrir(`<h3>${esc(t.nombre)}</h3>
-      <div class="campo"><label>¿Cuánto tiempo le has dedicado ahora?</label><div class="chips" id="mChips"></div></div>
-      <div class="campo"><input type="number" id="mNum" step="5" min="5" inputmode="numeric" value="30"></div>
-      <p class="nota" id="mPrev"></p>
-      <button class="btn" id="mOk">Registrar</button>`);
-    const quedan = () => Math.max(0, t.dur - (t.avance || 0) - m);
+      <div class="campo"><label>¿Cuánto tiempo le has dedicado? (si te llevó más de lo previsto, ponlo aquí)</label><div class="chips" id="cChips"></div></div>
+      <div class="campo"><input type="number" id="cNum" step="5" min="0" inputmode="numeric" value="${m}"></div>
+      <p class="nota" id="cPrev"></p>
+      <button class="btn" id="cOk">${estudio ? "Registrar sesión" : "Actividad completada"}</button>
+      ${estudio ? "" : '<button class="btn sec" id="cReg">Registrar tiempo (sigue pendiente)</button>'}`);
     const pintar = () => {
-      $("mChips").innerHTML = [10, 15, 30, 45, 60, 90].map((x) => `<button class="chip ${x === m ? "sel" : ""}" data-m="${x}">${fmin(x)}</button>`).join("");
-      $("mPrev").textContent = "Su importancia no cambia. Quedarían " + fmin(quedan()) + " de trabajo.";
+      const op = [...new Set([15, 30, 45, 60, 90, 120, 180, ...(resto ? [resto] : [])])].sort((x, y) => x - y);
+      $("cChips").innerHTML = op.map((x) => `<button class="chip ${x === m ? "sel" : ""}" data-m="${x}">${fmin(x)}</button>`).join("");
+      $("cPrev").textContent = estudio ? (t.fin ? "Pierde " + puntosPorHoras(m / 60).toFixed(1) + " puntos." : "Se suma a las horas de la asignatura.")
+        : (m ? "Se registran " + fmin(m) + (t.asigId ? " en su asignatura" : "") + "." : "Se completa sin registrar tiempo.") + (t.dur && m ? " Si solo registras, quedan " + fmin(Math.max(0, resto - m)) + "." : "");
     };
     pintar();
-    $("mChips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { m = Number(b.dataset.m); $("mNum").value = m; pintar(); } };
-    $("mNum").oninput = (e) => { m = Math.max(0, Number(e.target.value) || 0); pintar(); };
-    $("mOk").onclick = () => {
-      if (!m) return;
-      copia = foto(); t.avance = Math.min(t.dur, (t.avance || 0) + m); anotarTiempo(t.nombre, t.catId, m);
-      cerrar(); refrescar(); avisar("Registrados " + fmin(m) + " · quedan " + fmin(Math.max(0, t.dur - t.avance)));
-    };
+    $("cChips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { m = Number(b.dataset.m); $("cNum").value = m; pintar(); } };
+    $("cNum").oninput = (e) => { m = Math.max(0, Number(e.target.value) || 0); pintar(); };
+    $("cOk").onclick = () => { cerrar(); completar(t, m); };
+    if (!estudio) $("cReg").onclick = () => { if (!m) return $("cPrev").textContent = "Escribe cuánto tiempo has dedicado."; cerrar(); registrarParcial(t, m); };
   }
   // "Tengo X minutos": qué cabe en ese rato, por orden de prioridad, y cuántos puntos te quitas de encima
   function htmlPlan(min) {
@@ -729,35 +739,21 @@
     $("tChips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { min = Number(b.dataset.m); $("tNum").value = min; pintar(); } };
     $("tNum").oninput = (e) => { min = Math.max(5, Number(e.target.value) || 5); pintar(); };
   }
-  $("tiempoLibre").onclick = formTiempo;
-
-  // Ventana para indicar cuántas horas has dedicado (soloAsig = solo guardar horas, sin perder puntos)
-  function formHoras(t, soloAsig) {
-    let horas = 2;
-    const pierde = !soloAsig && t.rep && t.fin, asigId = soloAsig || t.asigId, asg = estado.asignaturas.find((x) => x.id === asigId);
-    abrir(`<h3>${esc(t.nombre)}</h3>
-      <div class="campo"><label>¿Cuántas horas has dedicado?</label><div class="chips" id="hChips"></div></div>
-      <div class="campo"><label>O escríbelo</label><input type="number" id="hNum" step="0.5" min="0" inputmode="decimal" value="2"></div>
-      <p class="nota" id="hPrev"></p>
-      <button class="btn" id="hOk">Registrar</button><button class="btn sec" id="hNo">Cancelar</button>`);
-    const pintar = () => {
-      $("hChips").innerHTML = [0.5, 1, 2, 3, 4, 6, 8].map((h) => `<button class="chip ${h === horas ? "sel" : ""}" data-h="${h}">${h} h</button>`).join("");
-      $("hPrev").textContent = pierde ? "Pierde " + puntosPorHoras(horas).toFixed(1) + " puntos" : "Se suman a " + (asg ? asg.nombre : "el historial");
-    };
-    pintar();
-    $("hChips").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { horas = Number(b.dataset.h); $("hNum").value = horas; pintar(); } };
-    $("hNum").oninput = (e) => { horas = Math.max(0, Number(e.target.value) || 0); pintar(); };
-    $("hOk").onclick = () => {
-      cerrar();
-      if (soloAsig) { copia = foto(); registrar(soloAsig, horas); anotarTiempo(t.nombre, t.catId, horas * 60); refrescar(); avisar("Registradas " + horas + " h"); } else completar(t, horas);
-    };
-    $("hNo").onclick = cerrar;
+  // Herramientas: aquí irán entrando funciones que no se usan siempre
+  function formHerramientas() {
+    abrir(`<h3>Herramientas</h3>
+      <button class="item" id="hTiempo"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 3h6"/></svg>
+        <div class="nombre"><b>Tengo poco tiempo</b><span>Qué cabe en un rato libre, por prioridad</span></div></button>
+      <p class="nota">Aquí irán apareciendo más herramientas.</p>`);
+    $("hTiempo").onclick = formTiempo;
   }
+  $("herr").onclick = formHerramientas;
+
   $("tareas").onclick = (e) => {
     const fila = e.target.closest(".tarea"); if (!fila) return;
     const t = estado.tareas.find((x) => x.id === Number(fila.dataset.id));
     if (!e.target.closest(".hecho")) return t.auto ? formAsig(estado.asignaturas.find((x) => x.id === t.asigId)) : formTarea(t);   // tocar la fila = editar
-    if (t.rep && (t.fin || t.asigId)) formHoras(t); else completar(t, 0);
+    formCompletar(t);
   };
   $("deshacer").onclick = () => { const f = JSON.parse(copia); estado.tareas = f.t; estado.horas = f.h; estado.hechas = f.d || []; estado.sesiones = f.s || []; refrescar(); $("aviso").style.display = "none"; };
   $("nueva").onclick = $("nuevaEsc").onclick = () => formTarea(null);
@@ -774,7 +770,10 @@
     const b = e.target.closest("[data-r]"); if (!b) return;
     const h = estado.hechas.find((x) => x.id === Number(b.dataset.r)); if (!h || !h.tarea) return;
     const t = h.tarea; if (estado.tareas.some((x) => x.id === t.id)) t.id = estado.sig++;
-    estado.tareas.push(t); estado.hechas = estado.hechas.filter((x) => x !== h); refrescar();
+    estado.tareas.push(t); estado.hechas = estado.hechas.filter((x) => x !== h);
+    if (h.sesId != null) estado.sesiones = estado.sesiones.filter((x) => x.id !== h.sesId);   // la barra de progreso vuelve a como estaba
+    if (h.horasId != null) estado.horas = estado.horas.filter((x) => x.id !== h.horasId);      // y las horas de la asignatura
+    refrescar();
   };
   $("asigs").onclick = (e) => {
     if (e.target.closest("#nuevaAsig")) return formAsig(null);
